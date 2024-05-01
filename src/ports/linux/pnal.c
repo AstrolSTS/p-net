@@ -284,9 +284,6 @@ static pnal_eth_mau_t calculate_mau_type (
    uint32_t speed,
    uint8_t duplex)
 {
-
-	return PNAL_ETH_MAU_COPPER_100BaseTX_FULL_DUPLEX;		// astrol return fix eth state for testing
-
    /* Copper cable */
    if (port_type == PORT_TP || port_type == PORT_MII)
    {
@@ -421,10 +418,18 @@ int pnal_eth_get_status (const char * interface_name, pnal_eth_status_t * status
       return ret;
    }
 
-   snprintf (ifr.ifr_name, sizeof (ifr.ifr_name), "%s", interface_name);
+   snprintf (ifr.ifr_name, sizeof (ifr.ifr_name), "%s - Astrol", interface_name);
    ifr.ifr_data = (char *)&eth_status_linux;
    eth_status_linux.cmd = ETHTOOL_GSET;
 
+   // astrol fix eth state for testing
+
+   status->operational_mau_type = PNAL_ETH_MAU_COPPER_100BaseTX_FULL_DUPLEX;		
+   status->is_autonegotiation_enabled = true;
+   status->is_autonegotiation_supported = true;
+   status->autonegotiation_advertised_capabilities = calculate_capabilities (eth_status_linux.advertising);
+   ret = 0;	
+/*
    if (ioctl (control_socket, SIOCETHTOOL, &ifr) >= 0)
    {
       speed = ethtool_cmd_speed (&eth_status_linux);
@@ -440,6 +445,8 @@ int pnal_eth_get_status (const char * interface_name, pnal_eth_status_t * status
 
       ret = 0;
    }
+   */
+   
 
    if (ioctl (control_socket, SIOCGIFFLAGS, &ifr) >= 0)
    {
