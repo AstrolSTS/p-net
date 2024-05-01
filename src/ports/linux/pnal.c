@@ -284,6 +284,9 @@ static pnal_eth_mau_t calculate_mau_type (
    uint32_t speed,
    uint8_t duplex)
 {
+
+	return PNAL_ETH_MAU_COPPER_100BaseTX_FULL_DUPLEX;		// astrol return fix eth state for testing
+
    /* Copper cable */
    if (port_type == PORT_TP || port_type == PORT_MII)
    {
