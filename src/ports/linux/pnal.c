@@ -423,11 +423,15 @@ int pnal_eth_get_status (const char * interface_name, pnal_eth_status_t * status
    eth_status_linux.cmd = ETHTOOL_GSET;
 
    // astrol fix eth state for testing
-
-   status->operational_mau_type = PNAL_ETH_MAU_COPPER_100BaseTX_FULL_DUPLEX;		
+   speed = ethtool_cmd_speed (&eth_status_linux);
+   port_type = PORT_TP;
    status->is_autonegotiation_enabled = true;
    status->is_autonegotiation_supported = true;
-   status->autonegotiation_advertised_capabilities = calculate_capabilities (eth_status_linux.advertising);
+   status->operational_mau_type =
+      calculate_mau_type (port_type, speed, DUPLEX_FULL);
+   status->autonegotiation_advertised_capabilities =
+      calculate_capabilities (eth_status_linux.advertising);
+
    ret = 0;	
 /*
    if (ioctl (control_socket, SIOCETHTOOL, &ifr) >= 0)
