@@ -109,7 +109,21 @@ uint8_t * app_data_get_input_data (
    }
 
    if (
-      submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN ||
+      submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN )
+   {
+      
+      inputdata[0] = counter;
+      inputdata[1] = counter + 1;
+      inputdata[2] = counter + 2;
+      inputdata[3] = counter + 3;
+      counter += 10;
+
+      *size = APP_GSDML_INPUT_DATA_DIGITAL_SIZE;
+      *iops = PNET_IOXS_GOOD;
+      return inputdata;
+   }
+
+   if (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT)
    {
       /* Prepare digital input data
