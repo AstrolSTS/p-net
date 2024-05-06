@@ -129,7 +129,7 @@ uint8_t * app_data_get_input_data (
       /* Prepare digital input data
        * Lowest 7 bits: Counter    Most significant bit: Button
        */
-      inputdata[0] = counter++;
+      /*inputdata[0] = counter++;
       if (button_pressed)
       {
          inputdata[0] |= 0x80;
@@ -138,6 +138,7 @@ uint8_t * app_data_get_input_data (
       {
          inputdata[0] &= 0x7F;
       }
+      */
 
       *size = APP_GSDML_INPUT_DATA_DIGITAL_SIZE;
       *iops = PNET_IOXS_GOOD;
