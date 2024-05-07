@@ -54,12 +54,12 @@
                   </InterfaceSubmoduleItem>
                </SystemDefinedSubmoduleList>
                <Graphics>
-                  <GraphicItemRef Type="DeviceSymbol" GraphicItemTarget="RT-LabsStackImage"/>
+                  <GraphicItemRef Type="DeviceSymbol" GraphicItemTarget="KKS-DCM-Image"/>
                </Graphics>
             </DeviceAccessPointItem>
          </DeviceAccessPointList>
          <ModuleList>
-            <ModuleItem ID="IDM_30" ModuleIdentNumber="0x00000030">
+            <ModuleItem ID="IDM_32" ModuleIdentNumber="0x00000032">
                <ModuleInfo>
                   <Name TextId="TOK_Name_Module_I8O8"/>
                   <InfoText TextId="TOK_InfoText_Module_I8O8"/>
