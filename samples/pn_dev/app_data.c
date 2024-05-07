@@ -144,34 +144,11 @@ uint8_t * app_data_get_input_data (
          inputdata[0] &= 0x7F;
       }
       */
-     /*
-      int fd;
-      char * cmd = "/bin/ubus call kksdcmd api '{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":1}}'";
-      char buf[1024];
+   
 
-      fd = open(cmd, O_RDONLY);
-      read(fd, buf, 1024);
-      APP_LOG_FATAL("\n%s", buf);
-      close(fd);      
-      */
-
-      FILE *fp;
-      char path[1035];
-
-      // Open the command for reading
-      fp = popen("ls /root/", "r");
-      if (fp == NULL) {
-         APP_LOG_FATAL("Failed to run command");
-      }
-
-      // Read the output line by line
-      while (fgets(path, sizeof(path), fp) != NULL) {
-         // Do something with the output
-         APP_LOG_FATAL("%s", path);
-      }
-
-      // Close the file pointer
-      pclose(fp);
+      // KKS-DCM
+      // Read generator data here
+      // Parse and fill in into inputdata buffer
 
 
       inputdata[0] = counter;
@@ -236,6 +213,11 @@ int app_data_set_output_data (
       if (size == APP_GSDML_OUTPUT_DATA_DIGITAL_SIZE)
       {
          memcpy (outputdata, data, size);
+
+         // KKS-DCM
+         // Write data to generator here
+         // read from outputdata buffer and fill into generator data
+
 
          /* Most significant bit: LED */
          led_state = 0;//(outputdata[0] & 0x80) > 0;
