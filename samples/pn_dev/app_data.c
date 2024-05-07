@@ -140,7 +140,9 @@ uint8_t * app_data_get_input_data (
          inputdata[0] &= 0x7F;
       }
       */
-
+      const char cmd[] = "ubus call kksdcmd api '{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":1}}'";
+      APP_LOG_FATAL("%s", cmd);
+      /*
       FILE* p = popen("ubus call kksdcmd api '{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":1}}'", "r");
       if (p) {
          char buff[1024];
@@ -149,6 +151,7 @@ uint8_t * app_data_get_input_data (
          }
          pclose(p);
       } 
+      */
 
       inputdata[0] = counter;
       inputdata[1] = counter + 1;
