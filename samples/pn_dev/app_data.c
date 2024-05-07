@@ -106,9 +106,10 @@ void init_kks_dcm(void) {
 
 static void ubus_callback(struct ubus_request *req, int type, struct blob_attr *msg)
 {
-    char *str;
-    blobmsg_parse(response_policy, blob_data(msg), blob_len(msg), &str);
-    APP_LOG_FATAL("Response from ubus function: %s", str);
+   char *json_str = blobmsg_format_json(msg, true);
+   APP_LOG_FATAL("Received response: %s", json_str);
+
+   free(json_str);
 }
 
 uint8_t * app_data_get_input_data (
@@ -155,7 +156,6 @@ uint8_t * app_data_get_input_data (
       request.data = req.head;
 
       ubus_invoke(ctx, &request, ubus_callback, NULL, 5000);
-
 
 
       // KKS-DCM
