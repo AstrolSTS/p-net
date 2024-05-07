@@ -29,6 +29,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <libubus.h>
+#include <libubox/blobmsg_json.h>
 
 #define APP_DATA_DEFAULT_OUTPUT_DATA 0
 
@@ -56,6 +58,8 @@ static uint8_t counter = 0;
 /* Network endianness */
 static uint8_t echo_inputdata[APP_GSDML_INPUT_DATA_ECHO_SIZE] = {0};
 static uint8_t echo_outputdata[APP_GSDML_OUTPUT_DATA_ECHO_SIZE] = {0};
+
+static struct ubus_context *ctx;
 
 CC_PACKED_BEGIN
 typedef struct CC_PACKED app_echo_data
@@ -92,6 +96,21 @@ static void app_handle_data_led_state (bool led_state)
    previous_led_state = led_state;
 }
 
+void init_kks_dcm(void) {
+   ctx = ubus_connect(NULL);
+   if (!ctx) {
+      APP_LOG_FATAL("Failed to connect to ubus");
+   }
+}
+
+
+static void ubus_callback(struct ubus_request *req, int type, struct blob_attr *msg)
+{
+    char *str;
+    blobmsg_parse(response_policy, blob_data(msg), blob_len(msg), &str);
+    APP_LOG_FATAL("Response from ubus function: %s", str);
+}
+
 uint8_t * app_data_get_input_data (
    uint16_t slot_nbr,
    uint16_t subslot_nbr,
@@ -125,7 +144,19 @@ uint8_t * app_data_get_input_data (
    if (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT)
    {
-        
+      
+      struct blob_buf req = { 0 };
+      blob_buf_init(&req);
+      blobmsg_add_string(&req, "message", "Hello, OpenWrt!");
+
+      struct ubus_request request = { 0 };
+      request.path = "system";
+      request.method = "board";
+      request.data = req.head;
+
+      ubus_invoke(ctx, &request, ubus_callback, NULL, 5000);
+
+
 
       // KKS-DCM
       // Read generator data here
