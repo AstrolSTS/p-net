@@ -130,7 +130,7 @@ uint8_t * app_data_get_input_data (
       // KKS-DCM
       // Read generator data here
       // Parse and fill in into inputdata buffer
-      for(i = 0;i<16;i++) {
+      for(i = 0;i<APP_NO_OF_GENERATORS;i++) {
          inputdata[(i*4)+0] = counter++;  // Generator x Status0
          inputdata[(i*4)+1] = counter++;  // Generator x Status1
          inputdata[(i*4)+2] = counter++;  // Generator x Error
@@ -197,7 +197,7 @@ int app_data_set_output_data (
          // KKS-DCM
          // Write data to generator here
          // read from outputdata buffer and fill into generator data
-         for(i = 0;i<16;i++) {
+         for(i = 0;i<APP_NO_OF_GENERATORS;i++) {
             //outputdata[(i*3)+0]; // Generator x Control0
             //outputdata[(i*3)+1]; // Generator x Control1
             //outputdata[(i*3)+2]; // Generator x Power Set
