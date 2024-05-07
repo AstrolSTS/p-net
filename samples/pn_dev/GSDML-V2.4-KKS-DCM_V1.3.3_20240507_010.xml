@@ -90,6 +90,7 @@
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_4_Error"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_4_Actual_Power"></DataItem>
 
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_5_Status0"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_5_Status1"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_5_Error"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_5_Actual_Power"></DataItem>
