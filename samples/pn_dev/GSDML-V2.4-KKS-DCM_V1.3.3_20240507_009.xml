@@ -89,7 +89,7 @@
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_4_Status1"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_4_Error"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_4_Actual_Power"></DataItem>
-<!--
+
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_5_Status1"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_5_Error"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_5_Actual_Power"></DataItem>
@@ -108,7 +108,7 @@
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_8_Status1"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_8_Error"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_8_Actual_Power"></DataItem>
-
+<!--
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_9_Status0"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_9_Status1"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_9_Error"></DataItem>
@@ -166,7 +166,7 @@
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_4_Control0"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_4_Control1"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_4_Power_Set"></DataItem>
-<!--
+
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_5_Control0"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_5_Control1"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_5_Power_Set"></DataItem>
@@ -182,7 +182,7 @@
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_8_Control0"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_8_Control1"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_8_Power_Set"></DataItem>
-
+<!--
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_9_Control0"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_9_Control1"></DataItem>
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_9_Power_Set"></DataItem>
@@ -261,7 +261,7 @@
                <Text TextId="TOK_Input_GEN_4_Status1" Value="Generator 4 Status1"/>
                <Text TextId="TOK_Input_GEN_4_Error" Value="Generator 4 Error"/>
                <Text TextId="TOK_Input_GEN_4_Actual_Power" Value="Generator 4 Actual Power"/>
-<!--               
+              
                <Text TextId="TOK_Input_GEN_5_Status0" Value="Generator 5 Status0"/>
                <Text TextId="TOK_Input_GEN_5_Status1" Value="Generator 5 Status1"/>
                <Text TextId="TOK_Input_GEN_5_Error" Value="Generator 5 Error"/>
@@ -281,7 +281,7 @@
                <Text TextId="TOK_Input_GEN_8_Status1" Value="Generator 8 Status1"/>
                <Text TextId="TOK_Input_GEN_8_Error" Value="Generator 8 Error"/>
                <Text TextId="TOK_Input_GEN_8_Actual_Power" Value="Generator 8 Actual Power"/>
-               
+ <!--               
                <Text TextId="TOK_Input_GEN_9_Status0" Value="Generator 9 Status0"/>
                <Text TextId="TOK_Input_GEN_9_Status1" Value="Generator 9 Status1"/>
                <Text TextId="TOK_Input_GEN_9_Error" Value="Generator 9 Error"/>
@@ -338,7 +338,7 @@
                <Text TextId="TOK_Output_GEN_4_Control0" Value="Generator 4 Control0"/>
                <Text TextId="TOK_Output_GEN_4_Control1" Value="Generator 4 Control1"/>
                <Text TextId="TOK_Output_GEN_4_Power_Set" Value="Generator 4 Power Set"/>
-<!--
+
                <Text TextId="TOK_Output_GEN_5_Control0" Value="Generator 5 Control0"/>
                <Text TextId="TOK_Output_GEN_5_Control1" Value="Generator 5 Control1"/>
                <Text TextId="TOK_Output_GEN_5_Power_Set" Value="Generator 5 Power Set"/>
@@ -354,7 +354,7 @@
                <Text TextId="TOK_Output_GEN_8_Control0" Value="Generator 8 Control0"/>
                <Text TextId="TOK_Output_GEN_8_Control1" Value="Generator 8 Control1"/>
                <Text TextId="TOK_Output_GEN_8_Power_Set" Value="Generator 8 Power Set"/>
-
+<!--
                <Text TextId="TOK_Output_GEN_9_Control0" Value="Generator 9 Control0"/>
                <Text TextId="TOK_Output_GEN_9_Control1" Value="Generator 9 Control1"/>
                <Text TextId="TOK_Output_GEN_9_Power_Set" Value="Generator 9 Power Set"/>
