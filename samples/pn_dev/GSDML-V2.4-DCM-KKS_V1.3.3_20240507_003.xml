@@ -218,13 +218,13 @@ Add additional PortSubmoduleItems to support additional ports
             </LogBookEntryItem>
          </LogBookEntryList>
          <GraphicsList>
-            <GraphicItem ID="RT-LabsStackImage" GraphicFile="GSDML-RT-LABS-STACK"/>
+            <GraphicItem ID="KKS-DCM-Image" GraphicFile="GSDML-KKS-DCM"/>
          </GraphicsList>
          <ExternalTextList>
             <PrimaryLanguage>
-               <Text TextId="IDT_INFO_Device" Value="KKS-DCM PROFINET GATEWAY"/>
-               <Text TextId="IDT_MODULE_NAME_DAP1" Value="Ultraschall Generator Profinet Gateway"/>
-               <Text TextId="IDT_INFO_DAP1" Value="KKS https://kks-surfacetreatment.com/"/>
+               <Text TextId="IDT_INFO_Device" Value="Ultraschall Generator Profinet Gateway"/>
+               <Text TextId="IDT_MODULE_NAME_DAP1" Value="KKS-DCM"/>
+               <Text TextId="IDT_INFO_DAP1" Value="Ultraschall Generator Profinet Gateway https://kks-surfacetreatment.com/"/>
                <Text TextId="IDT_CUSTOM_DIAG_1" Value="Custom diagnosis in USI format"/>
                <Text TextId="IDT_CUSTOM_DIAG_1_VALUE" Value="Custom diagnosis value"/>
                <Text TextId="IDT_CUSTOM_LOGBOOK_1" Value="Custom Logbook entry"/>

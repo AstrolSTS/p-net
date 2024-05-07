@@ -39,7 +39,7 @@ extern "C" {
 
 #define APP_GSDML_API 0
 
-#define APP_GSDML_DEFAULT_STATION_NAME "DCM_KKS"
+#define APP_GSDML_DEFAULT_STATION_NAME "KKS-DCM"
 
 /* GSDML tag: VendorID */
 #define APP_GSDML_VENDOR_ID 0x0493
