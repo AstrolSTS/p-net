@@ -141,6 +141,15 @@ uint8_t * app_data_get_input_data (
       }
       */
 
+      FILE* p = popen("ubus call kksdcmd api '{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":1}}'", "r");
+      if (p) {
+         char buff[1024];
+         while (fgets(buff, sizeof(buff), p)) {
+            APP_LOG_FATAL("%s", buff);
+         }
+         pclose(p);
+      } 
+
       inputdata[0] = counter;
       inputdata[1] = counter + 1;
       inputdata[2] = counter + 2;
