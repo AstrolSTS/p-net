@@ -144,6 +144,7 @@ uint8_t * app_data_get_input_data (
          inputdata[0] &= 0x7F;
       }
       */
+     /*
       int fd;
       char * cmd = "/bin/ubus call kksdcmd api '{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":1}}'";
       char buf[1024];
@@ -152,6 +153,26 @@ uint8_t * app_data_get_input_data (
       read(fd, buf, 1024);
       APP_LOG_FATAL("\n%s", buf);
       close(fd);      
+      */
+
+      FILE *fp;
+      char path[1035];
+
+      // Open the command for reading
+      fp = popen("ls /root/", "r");
+      if (fp == NULL) {
+         APP_LOG_FATAL("Failed to run command");
+      }
+
+      // Read the output line by line
+      while (fgets(path, sizeof(path), fp) != NULL) {
+         // Do something with the output
+         APP_LOG_FATAL("%s", path);
+      }
+
+      // Close the file pointer
+      pclose(fp);
+
 
       inputdata[0] = counter;
       inputdata[1] = counter + 1;
