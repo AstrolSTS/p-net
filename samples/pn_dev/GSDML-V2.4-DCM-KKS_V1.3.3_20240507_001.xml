@@ -242,8 +242,8 @@ Add additional PortSubmoduleItems to support additional ports
                <Text TextId="IDT_NAME_PS2" Value="X1 P2"/>
                <!--module name-->
                <Text TextId="TOK_Name_Module_I8" Value="INPUTS"/>
-               <Text TextId="TOK_Name_Module_O8" Value="DO 8xLogicLevel"/>
-               <Text TextId="TOK_Name_Module_I8O8" Value="DIO 8xLogicLevel"/>
+               <Text TextId="TOK_Name_Module_O8" Value="Outputs"/>
+               <Text TextId="TOK_Name_Module_I8O8" Value="Inputs/Outputs"/>
                <Text TextId="TOK_Name_Module_Echo" Value="Echo Module"/>
                <!--module info -->
                <Text TextId="TOK_InfoText_Module_I8" Value="Inputs"/>
