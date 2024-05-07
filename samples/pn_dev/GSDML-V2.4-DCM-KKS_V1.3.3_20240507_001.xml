@@ -133,16 +133,9 @@ Add additional PortSubmoduleItems to support additional ports
                   <VirtualSubmoduleItem ID="IDSM_131" SubmoduleIdentNumber="0x0131" MayIssueProcessAlarm="true">
                      <IOData>
                         <Output Consistency="All items consistency">
-                           <DataItem DataType="Unsigned8" TextId="TOK_Output_DataItem_8" UseAsBits="true">
-                              <BitDataItem BitOffset="0" TextId="TOK_Output_DataItem_Bit0"/>
-                              <BitDataItem BitOffset="1" TextId="TOK_Output_DataItem_Bit1"/>
-                              <BitDataItem BitOffset="2" TextId="TOK_Output_DataItem_Bit2"/>
-                              <BitDataItem BitOffset="3" TextId="TOK_Output_DataItem_Bit3"/>
-                              <BitDataItem BitOffset="4" TextId="TOK_Output_DataItem_Bit4"/>
-                              <BitDataItem BitOffset="5" TextId="TOK_Output_DataItem_Bit5"/>
-                              <BitDataItem BitOffset="6" TextId="TOK_Output_DataItem_Bit6"/>
-                              <BitDataItem BitOffset="7" TextId="TOK_Output_DataItem_Bit7"/>
-                           </DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_1_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_1_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_1_Power_Set"></DataItem>
                         </Output>
                      </IOData>
                      <ModuleInfo>
@@ -163,28 +156,14 @@ Add additional PortSubmoduleItems to support additional ports
                   <VirtualSubmoduleItem ID="IDSM_132" SubmoduleIdentNumber="0x0132" MayIssueProcessAlarm="true">
                      <IOData>
                         <Input>
-                           <DataItem DataType="Unsigned8" UseAsBits="true" TextId="TOK_Input_DataItem_8">
-                              <BitDataItem BitOffset="0" TextId="TOK_Input_DataItem_Bit0"/>
-                              <BitDataItem BitOffset="1" TextId="TOK_Input_DataItem_Bit1"/>
-                              <BitDataItem BitOffset="2" TextId="TOK_Input_DataItem_Bit2"/>
-                              <BitDataItem BitOffset="3" TextId="TOK_Input_DataItem_Bit3"/>
-                              <BitDataItem BitOffset="4" TextId="TOK_Input_DataItem_Bit4"/>
-                              <BitDataItem BitOffset="5" TextId="TOK_Input_DataItem_Bit5"/>
-                              <BitDataItem BitOffset="6" TextId="TOK_Input_DataItem_Bit6"/>
-                              <BitDataItem BitOffset="7" TextId="TOK_Input_DataItem_Bit7"/>
-                           </DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Power_Set"></DataItem>
                         </Input>
                         <Output Consistency="All items consistency">
-                           <DataItem DataType="Unsigned8" TextId="TOK_Output_DataItem_8" UseAsBits="true">
-                              <BitDataItem BitOffset="0" TextId="TOK_Output_DataItem_Bit0"/>
-                              <BitDataItem BitOffset="1" TextId="TOK_Output_DataItem_Bit1"/>
-                              <BitDataItem BitOffset="2" TextId="TOK_Output_DataItem_Bit2"/>
-                              <BitDataItem BitOffset="3" TextId="TOK_Output_DataItem_Bit3"/>
-                              <BitDataItem BitOffset="4" TextId="TOK_Output_DataItem_Bit4"/>
-                              <BitDataItem BitOffset="5" TextId="TOK_Output_DataItem_Bit5"/>
-                              <BitDataItem BitOffset="6" TextId="TOK_Output_DataItem_Bit6"/>
-                              <BitDataItem BitOffset="7" TextId="TOK_Output_DataItem_Bit7"/>
-                           </DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_1_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_1_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_1_Power_Set"></DataItem>
                         </Output>
                      </IOData>
                      <RecordDataList>
@@ -268,32 +247,20 @@ Add additional PortSubmoduleItems to support additional ports
                <Text TextId="TOK_Name_Module_Echo" Value="Echo Module"/>
                <!--module info -->
                <Text TextId="TOK_InfoText_Module_I8" Value="Inputs"/>
-               <Text TextId="TOK_InfoText_Module_O8" Value="Digital Out 8xLogicLevel"/>
-               <Text TextId="TOK_InfoText_Module_I8O8" Value="Digital In+Out 8xLogicLevel"/>
+               <Text TextId="TOK_InfoText_Module_O8" Value="Outputs"/>
+               <Text TextId="TOK_InfoText_Module_I8O8" Value="Inputs/Outputs"/>
                <Text TextId="TOK_InfoText_Module_Echo" Value="Echo with adjustable gain"/>
                <!--dataitem name-->
                <Text TextId="TOK_Input_GEN_1_Status0" Value="Generator 1 Status0"/>
                <Text TextId="TOK_Input_GEN_1_Status1" Value="Generator 1 Status1"/>
                <Text TextId="TOK_Input_GEN_1_Error" Value="Generator 1 Error"/>
                <Text TextId="TOK_Input_GEN_1_Actual_Power" Value="Generator 1 Actual Power"/>
-               <Text TextId="TOK_Input_DataItem_8" Value="Input 8 bits"/>
-               <Text TextId="TOK_Output_DataItem_8" Value="Output 8 bits"/>
-               <Text TextId="TOK_Input_DataItem_Bit0" Value="Input Bit 0"/>
-               <Text TextId="TOK_Input_DataItem_Bit1" Value="Input Bit 1"/>
-               <Text TextId="TOK_Input_DataItem_Bit2" Value="Input Bit 2"/>
-               <Text TextId="TOK_Input_DataItem_Bit3" Value="Input Bit 3"/>
-               <Text TextId="TOK_Input_DataItem_Bit4" Value="Input Bit 4"/>
-               <Text TextId="TOK_Input_DataItem_Bit5" Value="Input Bit 5"/>
-               <Text TextId="TOK_Input_DataItem_Bit6" Value="Input Bit 6"/>
-               <Text TextId="TOK_Input_DataItem_Bit7" Value="Input Bit 7"/>
-               <Text TextId="TOK_Output_DataItem_Bit0" Value="Output Bit 0"/>
-               <Text TextId="TOK_Output_DataItem_Bit1" Value="Output Bit 1"/>
-               <Text TextId="TOK_Output_DataItem_Bit2" Value="Output Bit 2"/>
-               <Text TextId="TOK_Output_DataItem_Bit3" Value="Output Bit 3"/>
-               <Text TextId="TOK_Output_DataItem_Bit4" Value="Output Bit 4"/>
-               <Text TextId="TOK_Output_DataItem_Bit5" Value="Output Bit 5"/>
-               <Text TextId="TOK_Output_DataItem_Bit6" Value="Output Bit 6"/>
-               <Text TextId="TOK_Output_DataItem_Bit7" Value="Output Bit 7"/>
+               <Text TextId="TOK_Input_GEN_1_Control0" Value="Generator 1 Control0"/>
+               <Text TextId="TOK_Input_GEN_1_Control1" Value="Generator 1 Control1"/>
+               <Text TextId="TOK_Input_GEN_1_Power_Set" Value="Generator 1 Power Set"/>
+               <Text TextId="TOK_Output_GEN_1_Control0" Value="Generator 1 Control0"/>
+               <Text TextId="TOK_Output_GEN_1_Control1" Value="Generator 1 Control1"/>
+               <Text TextId="TOK_Output_GEN_1_Power_Set" Value="Generator 1 Power Set"/>
                <Text TextId="TOK_Input_DataItem_Echo_Float32" Value="Input float to controller (output from controller multiplied by gain)"/>
                <Text TextId="TOK_Input_DataItem_Echo_Unsigned32" Value="Input int to controller (output from controller multiplied by gain)"/>
                <Text TextId="TOK_Output_DataItem_Echo_Float32" Value="Output float from controller"/>

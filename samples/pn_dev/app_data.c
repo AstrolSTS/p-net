@@ -139,10 +139,10 @@ uint8_t * app_data_get_input_data (
          inputdata[0] &= 0x7F;
       }
       */
-
-      *size = APP_GSDML_INPUT_DATA_DIGITAL_SIZE;
+     
+      *size = APP_GSDML_OUTPUT_DATA_DIGITAL_SIZE;
       *iops = PNET_IOXS_GOOD;
-      return inputdata;
+      return outputdata;
    }
 
    if (submodule_id == APP_GSDML_SUBMOD_ID_ECHO)
@@ -198,8 +198,8 @@ int app_data_set_output_data (
          memcpy (outputdata, data, size);
 
          /* Most significant bit: LED */
-         led_state = (outputdata[0] & 0x80) > 0;
-         app_handle_data_led_state (led_state);
+         //led_state = (outputdata[0] & 0x80) > 0;
+         //app_handle_data_led_state (led_state);
 
          return 0;
       }

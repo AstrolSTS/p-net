@@ -46,12 +46,12 @@ static const app_gsdml_module_t module_digital_in = {
 
 static const app_gsdml_module_t module_digital_out = {
    .id = APP_GSDML_MOD_ID_0_8_DIGITAL_OUT,
-   .name = "DO 8xLogicLevel",
+   .name = "OUTPUTS",
    .submodules = {APP_GSDML_SUBMOD_ID_DIGITAL_OUT, 0}};
 
 static const app_gsdml_module_t module_digital_in_out = {
    .id = APP_GSDML_MOD_ID_8_8_DIGITAL_IN_OUT,
-   .name = "DIO 8xLogicLevel",
+   .name = "INPUTS/OUTPUTS",
    .submodules = {APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT, 0}};
 
 static const app_gsdml_module_t module_echo = {
@@ -126,7 +126,7 @@ static const app_gsdml_submodule_t submod_digital_in = {
 
 static const app_gsdml_submodule_t submod_digital_out = {
    .id = APP_GSDML_SUBMOD_ID_DIGITAL_OUT,
-   .name = "Digital Output",
+   .name = "Outputs",
    .api = APP_GSDML_API,
    .data_dir = PNET_DIR_OUTPUT,
    .insize = 0,
@@ -135,10 +135,10 @@ static const app_gsdml_submodule_t submod_digital_out = {
 
 static const app_gsdml_submodule_t submod_digital_inout = {
    .id = APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT,
-   .name = "Digital Input/Output",
+   .name = "Inputs/Outputs",
    .api = APP_GSDML_API,
    .data_dir = PNET_DIR_IO,
-   .insize = APP_GSDML_INPUT_DATA_DIGITAL_SIZE,
+   .insize = APP_GSDML_OUTPUT_DATA_DIGITAL_SIZE,
    .outsize = APP_GSDML_OUTPUT_DATA_DIGITAL_SIZE,
    .parameters = {APP_GSDML_PARAMETER_1_IDX, APP_GSDML_PARAMETER_2_IDX, 0}};
 
