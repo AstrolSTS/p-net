@@ -140,19 +140,14 @@ uint8_t * app_data_get_input_data (
          inputdata[0] &= 0x7F;
       }
       */
-      const char cmd[] = "ubus call kksdcmd api '{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":1}}'";
-      
+      int fd;
+      char * cmd = "/bin/ubus call kksdcmd api '{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":1}}'";
+      char buf[1024];
 
-      FILE* p = popen(cmd, "r");
-      if (p) {
-         APP_LOG_FATAL("\n%s", cmd);
-         //char buff[1024];
-         //while (fgets(buff, sizeof(buff), p)) {
-         //   APP_LOG_FATAL("%s", buff);
-         //}
-         pclose(p);
-      } 
-      
+      fd = open(cmd, O_RDONLY);
+      read(fd, buf, 1024);
+      APP_LOG_FATAL("\n%s", buf);
+      close(fd);      
 
       inputdata[0] = counter;
       inputdata[1] = counter + 1;
