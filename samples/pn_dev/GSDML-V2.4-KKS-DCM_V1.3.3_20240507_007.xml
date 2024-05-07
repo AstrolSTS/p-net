@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ISO15745Profile xmlns="http://www.profibus.com/GSDML/2003/11/DeviceProfile" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.profibus.com/GSDML/2003/11/DeviceProfile ..\xsd\GSDML-DeviceProfile-V2.4.xsd">
+   <!-- ProfileHeader definition as defined in ISO 15745-1. Please do not change the content. -->
+   <ProfileHeader>
+      <ProfileIdentification>PROFINET Device Profile</ProfileIdentification>
+      <ProfileRevision>1.00</ProfileRevision>
+      <ProfileName>Device Profile for PROFINET Devices</ProfileName>
+      <ProfileSource>PROFIBUS Nutzerorganisation e. V. (PNO)</ProfileSource>
+      <ProfileClassID>Device</ProfileClassID>
+      <ISO15745Reference>
+         <ISO15745Part>4</ISO15745Part>
+         <ISO15745Edition>1</ISO15745Edition>
+         <ProfileTechnology>GSDML</ProfileTechnology>
+      </ISO15745Reference>
+   </ProfileHeader>
+   <ProfileBody>
+      <DeviceIdentity VendorID="0x0493" DeviceID="0x0002">
+         <InfoText TextId="IDT_INFO_Device"/>
+         <VendorName Value="KKS Ultraschall AG"/>
+      </DeviceIdentity>
+      <DeviceFunction>
+         <Family MainFamily="Gateway" ProductFamily="KKS Ultraschall AG"/>
+      </DeviceFunction>
+      <ApplicationProcess>
+         <DeviceAccessPointList>
+            <DeviceAccessPointItem ID="IDD_1" PNIO_Version="V2.4" PhysicalSlots="0..1" ModuleIdentNumber="0x00000001" MinDeviceInterval="32" DNS_CompatibleName="KKS-DCM" FixedInSlots="0" ObjectUUID_LocalIndex="1" DeviceAccessSupported="false" MultipleWriteSupported="true" CheckDeviceID_Allowed="true" NameOfStationNotTransferable="false" LLDP_NoD_Supported="true">
+               <ModuleInfo>
+                  <Name TextId="IDT_MODULE_NAME_DAP1"/>
+                  <InfoText TextId="IDT_INFO_DAP1"/>
+                  <VendorName Value="KKS Ultraschall AG"/>
+                  <OrderNumber Value="KKS-DCM"/>
+                  <HardwareRelease Value="B02"/>
+                  <SoftwareRelease Value="V1.3.3"/>
+               </ModuleInfo>
+               <CertificationInfo ConformanceClass="B" ApplicationClass="" NetloadClass="I"/>
+               <IOConfigData MaxInputLength="244" MaxOutputLength="244"/>
+               <UseableModules>
+                  <ModuleItemRef ModuleItemTarget="IDM_32" AllowedInSlots="1"/>
+               </UseableModules>
+               <VirtualSubmoduleList>
+                  <VirtualSubmoduleItem ID="IDS_1" SubmoduleIdentNumber="0x00000001" Writeable_IM_Records="1 2 3" MayIssueProcessAlarm="false">
+                     <IOData/>
+                     <ModuleInfo>
+                        <Name TextId="IDT_MODULE_NAME_DAP1"/>
+                        <InfoText TextId="IDT_INFO_DAP1"/>
+                     </ModuleInfo>
+                  </VirtualSubmoduleItem>
+               </VirtualSubmoduleList>
+               <SystemDefinedSubmoduleList>
+                  <InterfaceSubmoduleItem ID="IDS_I" SubmoduleIdentNumber="0x00008000" SubslotNumber="32768" TextId="IDT_NAME_IS" SupportedRT_Classes="RT_CLASS_1" SupportedProtocols="SNMP;LLDP" NetworkComponentDiagnosisSupported="false" PTP_BoundarySupported="true" DCP_BoundarySupported="true">
+                     <ApplicationRelations StartupMode="Advanced">
+                        <TimingProperties SendClock="32" ReductionRatio="1 2 4 8 16 32 64 128 256 512"/>
+                     </ApplicationRelations>
+                  </InterfaceSubmoduleItem>
+               </SystemDefinedSubmoduleList>
+               <Graphics>
+                  <GraphicItemRef Type="DeviceSymbol" GraphicItemTarget="KKS-DCM-Image"/>
+               </Graphics>
+            </DeviceAccessPointItem>
+         </DeviceAccessPointList>
+         <ModuleList>
+            <ModuleItem ID="IDM_32" ModuleIdentNumber="0x00000032">
+               <ModuleInfo>
+                  <Name TextId="TOK_Name_Module_I8O8"/>
+                  <InfoText TextId="TOK_InfoText_Module_I8O8"/>
+                  <HardwareRelease Value="1.0"/>
+                  <SoftwareRelease Value="1.0"/>
+               </ModuleInfo>
+               <VirtualSubmoduleList>
+                  <VirtualSubmoduleItem ID="IDSM_132" SubmoduleIdentNumber="0x0132" MayIssueProcessAlarm="true">
+                     <IOData>
+                        <Input Consistency="All items consistency">
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_2_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_2_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_2_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_2_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_3_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_3_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_3_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_3_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_4_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_4_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_4_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_4_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_5_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_5_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_5_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_5_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_6_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_6_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_6_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_6_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_7_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_7_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_7_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_7_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_8_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_8_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_8_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_8_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_9_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_9_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_9_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_9_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_10_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_10_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_10_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_10_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_11_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_11_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_11_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_11_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_12_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_12_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_12_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_12_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_13_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_13_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_13_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_13_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_14_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_14_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_14_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_14_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_15_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_15_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_15_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_15_Actual_Power"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_16_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_16_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_16_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_16_Actual_Power"></DataItem>
+
+                        </Input>
+                        <Output Consistency="All items consistency">
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_1_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_1_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_1_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_2_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_2_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_2_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_3_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_3_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_3_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_4_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_4_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_4_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_5_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_5_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_5_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_6_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_6_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_6_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_7_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_7_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_7_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_8_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_8_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_8_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_9_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_9_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_9_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_10_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_10_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_10_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_11_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_11_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_11_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_12_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_12_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_12_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_13_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_13_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_13_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_14_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_14_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_14_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_15_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_15_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_15_Power_Set"></DataItem>
+
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_16_Control0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_16_Control1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_16_Power_Set"></DataItem>
+
+                        </Output>
+                     </IOData>
+                     <ModuleInfo>
+                        <Name TextId="TOK_Name_Module_I8O8"/>
+                        <InfoText TextId="TOK_InfoText_Module_I8O8"/>
+                     </ModuleInfo>
+                  </VirtualSubmoduleItem>
+               </VirtualSubmoduleList>
+            </ModuleItem>
+         </ModuleList>
+
+         <GraphicsList>
+            <GraphicItem ID="KKS-DCM-Image" GraphicFile="GSDML-KKS-DCM"/>
+         </GraphicsList>
+         <ExternalTextList>
+            <PrimaryLanguage>
+               <Text TextId="IDT_INFO_Device" Value="Ultraschall Generator Profinet Gateway"/>
+               <Text TextId="IDT_MODULE_NAME_DAP1" Value="KKS-DCM"/>
+               <Text TextId="IDT_INFO_DAP1" Value="Ultraschall Generator Profinet Gateway https://kks-surfacetreatment.com/"/>
+               <Text TextId="IDT_NAME_IS" Value="X1"/>
+               <Text TextId="IDT_NAME_PS1" Value="X1 P1"/>
+               <Text TextId="IDT_NAME_PS2" Value="X1 P2"/>
+               <!--module name-->
+               <Text TextId="TOK_Name_Module_I8O8" Value="Power Module"/>
+               <!--module info -->
+               <Text TextId="TOK_InfoText_Module_I8O8" Value="Power Module"/>
+               <!--dataitem name-->
+               <Text TextId="TOK_Input_GEN_1_Status0" Value="Generator 1 Status0"/>
+               <Text TextId="TOK_Input_GEN_1_Status1" Value="Generator 1 Status1"/>
+               <Text TextId="TOK_Input_GEN_1_Error" Value="Generator 1 Error"/>
+               <Text TextId="TOK_Input_GEN_1_Actual_Power" Value="Generator 1 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_2_Status0" Value="Generator 2 Status0"/>
+               <Text TextId="TOK_Input_GEN_2_Status1" Value="Generator 2 Status1"/>
+               <Text TextId="TOK_Input_GEN_2_Error" Value="Generator 2 Error"/>
+               <Text TextId="TOK_Input_GEN_2_Actual_Power" Value="Generator 2 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_3_Status0" Value="Generator 3 Status0"/>
+               <Text TextId="TOK_Input_GEN_3_Status1" Value="Generator 3 Status1"/>
+               <Text TextId="TOK_Input_GEN_3_Error" Value="Generator 3 Error"/>
+               <Text TextId="TOK_Input_GEN_3_Actual_Power" Value="Generator 3 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_4_Status0" Value="Generator 4 Status0"/>
+               <Text TextId="TOK_Input_GEN_4_Status1" Value="Generator 4 Status1"/>
+               <Text TextId="TOK_Input_GEN_4_Error" Value="Generator 4 Error"/>
+               <Text TextId="TOK_Input_GEN_4_Actual_Power" Value="Generator 4 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_5_Status0" Value="Generator 5 Status0"/>
+               <Text TextId="TOK_Input_GEN_5_Status1" Value="Generator 5 Status1"/>
+               <Text TextId="TOK_Input_GEN_5_Error" Value="Generator 5 Error"/>
+               <Text TextId="TOK_Input_GEN_5_Actual_Power" Value="Generator 5 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_6_Status0" Value="Generator 6 Status0"/>
+               <Text TextId="TOK_Input_GEN_6_Status1" Value="Generator 6 Status1"/>
+               <Text TextId="TOK_Input_GEN_6_Error" Value="Generator 6 Error"/>
+               <Text TextId="TOK_Input_GEN_6_Actual_Power" Value="Generator 6 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_7_Status0" Value="Generator 7 Status0"/>
+               <Text TextId="TOK_Input_GEN_7_Status1" Value="Generator 7 Status1"/>
+               <Text TextId="TOK_Input_GEN_7_Error" Value="Generator 7 Error"/>
+               <Text TextId="TOK_Input_GEN_7_Actual_Power" Value="Generator 7 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_8_Status0" Value="Generator 8 Status0"/>
+               <Text TextId="TOK_Input_GEN_8_Status1" Value="Generator 8 Status1"/>
+               <Text TextId="TOK_Input_GEN_8_Error" Value="Generator 8 Error"/>
+               <Text TextId="TOK_Input_GEN_8_Actual_Power" Value="Generator 8 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_9_Status0" Value="Generator 9 Status0"/>
+               <Text TextId="TOK_Input_GEN_9_Status1" Value="Generator 9 Status1"/>
+               <Text TextId="TOK_Input_GEN_9_Error" Value="Generator 9 Error"/>
+               <Text TextId="TOK_Input_GEN_9_Actual_Power" Value="Generator 9 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_10_Status0" Value="Generator 10 Status0"/>
+               <Text TextId="TOK_Input_GEN_10_Status1" Value="Generator 10 Status1"/>
+               <Text TextId="TOK_Input_GEN_10_Error" Value="Generator 10 Error"/>
+               <Text TextId="TOK_Input_GEN_10_Actual_Power" Value="Generator 10 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_11_Status0" Value="Generator 11 Status0"/>
+               <Text TextId="TOK_Input_GEN_11_Status1" Value="Generator 11 Status1"/>
+               <Text TextId="TOK_Input_GEN_11_Error" Value="Generator 11 Error"/>
+               <Text TextId="TOK_Input_GEN_11_Actual_Power" Value="Generator 11 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_12_Status0" Value="Generator 12 Status0"/>
+               <Text TextId="TOK_Input_GEN_12_Status1" Value="Generator 12 Status1"/>
+               <Text TextId="TOK_Input_GEN_12_Error" Value="Generator 12 Error"/>
+               <Text TextId="TOK_Input_GEN_12_Actual_Power" Value="Generator 12 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_13_Status0" Value="Generator 13 Status0"/>
+               <Text TextId="TOK_Input_GEN_13_Status1" Value="Generator 13 Status1"/>
+               <Text TextId="TOK_Input_GEN_13_Error" Value="Generator 13 Error"/>
+               <Text TextId="TOK_Input_GEN_13_Actual_Power" Value="Generator 13 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_14_Status0" Value="Generator 14 Status0"/>
+               <Text TextId="TOK_Input_GEN_14_Status1" Value="Generator 14 Status1"/>
+               <Text TextId="TOK_Input_GEN_14_Error" Value="Generator 14 Error"/>
+               <Text TextId="TOK_Input_GEN_14_Actual_Power" Value="Generator 14 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_15_Status0" Value="Generator 15 Status0"/>
+               <Text TextId="TOK_Input_GEN_15_Status1" Value="Generator 15 Status1"/>
+               <Text TextId="TOK_Input_GEN_15_Error" Value="Generator 15 Error"/>
+               <Text TextId="TOK_Input_GEN_15_Actual_Power" Value="Generator 15 Actual Power"/>
+               
+               <Text TextId="TOK_Input_GEN_16_Status0" Value="Generator 16 Status0"/>
+               <Text TextId="TOK_Input_GEN_16_Status1" Value="Generator 16 Status1"/>
+               <Text TextId="TOK_Input_GEN_16_Error" Value="Generator 16 Error"/>
+               <Text TextId="TOK_Input_GEN_16_Actual_Power" Value="Generator 16 Actual Power"/>
+               
+
+               <Text TextId="TOK_Output_GEN_1_Control0" Value="Generator 1 Control0"/>
+               <Text TextId="TOK_Output_GEN_1_Control1" Value="Generator 1 Control1"/>
+               <Text TextId="TOK_Output_GEN_1_Power_Set" Value="Generator 1 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_2_Control0" Value="Generator 2 Control0"/>
+               <Text TextId="TOK_Output_GEN_2_Control1" Value="Generator 2 Control1"/>
+               <Text TextId="TOK_Output_GEN_2_Power_Set" Value="Generator 2 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_3_Control0" Value="Generator 3 Control0"/>
+               <Text TextId="TOK_Output_GEN_3_Control1" Value="Generator 3 Control1"/>
+               <Text TextId="TOK_Output_GEN_3_Power_Set" Value="Generator 3 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_4_Control0" Value="Generator 4 Control0"/>
+               <Text TextId="TOK_Output_GEN_4_Control1" Value="Generator 4 Control1"/>
+               <Text TextId="TOK_Output_GEN_4_Power_Set" Value="Generator 4 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_5_Control0" Value="Generator 5 Control0"/>
+               <Text TextId="TOK_Output_GEN_5_Control1" Value="Generator 5 Control1"/>
+               <Text TextId="TOK_Output_GEN_5_Power_Set" Value="Generator 5 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_6_Control0" Value="Generator 6 Control0"/>
+               <Text TextId="TOK_Output_GEN_6_Control1" Value="Generator 6 Control1"/>
+               <Text TextId="TOK_Output_GEN_6_Power_Set" Value="Generator 6 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_7_Control0" Value="Generator 7 Control0"/>
+               <Text TextId="TOK_Output_GEN_7_Control1" Value="Generator 7 Control1"/>
+               <Text TextId="TOK_Output_GEN_7_Power_Set" Value="Generator 7 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_8_Control0" Value="Generator 8 Control0"/>
+               <Text TextId="TOK_Output_GEN_8_Control1" Value="Generator 8 Control1"/>
+               <Text TextId="TOK_Output_GEN_8_Power_Set" Value="Generator 8 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_9_Control0" Value="Generator 9 Control0"/>
+               <Text TextId="TOK_Output_GEN_9_Control1" Value="Generator 9 Control1"/>
+               <Text TextId="TOK_Output_GEN_9_Power_Set" Value="Generator 9 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_10_Control0" Value="Generator 10 Control0"/>
+               <Text TextId="TOK_Output_GEN_10_Control1" Value="Generator 10 Control1"/>
+               <Text TextId="TOK_Output_GEN_10_Power_Set" Value="Generator 10 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_11_Control0" Value="Generator 11 Control0"/>
+               <Text TextId="TOK_Output_GEN_11_Control1" Value="Generator 11 Control1"/>
+               <Text TextId="TOK_Output_GEN_11_Power_Set" Value="Generator 11 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_12_Control0" Value="Generator 12 Control0"/>
+               <Text TextId="TOK_Output_GEN_12_Control1" Value="Generator 12 Control1"/>
+               <Text TextId="TOK_Output_GEN_12_Power_Set" Value="Generator 12 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_13_Control0" Value="Generator 13 Control0"/>
+               <Text TextId="TOK_Output_GEN_13_Control1" Value="Generator 13 Control1"/>
+               <Text TextId="TOK_Output_GEN_13_Power_Set" Value="Generator 13 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_14_Control0" Value="Generator 14 Control0"/>
+               <Text TextId="TOK_Output_GEN_14_Control1" Value="Generator 14 Control1"/>
+               <Text TextId="TOK_Output_GEN_14_Power_Set" Value="Generator 14 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_15_Control0" Value="Generator 15 Control0"/>
+               <Text TextId="TOK_Output_GEN_15_Control1" Value="Generator 15 Control1"/>
+               <Text TextId="TOK_Output_GEN_15_Power_Set" Value="Generator 15 Power Set"/>
+
+               <Text TextId="TOK_Output_GEN_16_Control0" Value="Generator 16 Control0"/>
+               <Text TextId="TOK_Output_GEN_16_Control1" Value="Generator 16 Control1"/>
+               <Text TextId="TOK_Output_GEN_16_Power_Set" Value="Generator 16 Power Set"/>
+               
+               <!--ParameterRecordDataItem name-->
+
+            </PrimaryLanguage>
+         </ExternalTextList>
+      </ApplicationProcess>
+   </ProfileBody>
+</ISO15745Profile>

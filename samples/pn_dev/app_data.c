@@ -106,6 +106,7 @@ uint8_t * app_data_get_input_data (
    uint32_t hostorder_outputfloat_bytes;
    app_echo_data_t * p_echo_inputdata = (app_echo_data_t *)&echo_inputdata;
    app_echo_data_t * p_echo_outputdata = (app_echo_data_t *)&echo_outputdata;
+   int16_t i;
 
    if (size == NULL || iops == NULL)
    {
@@ -115,14 +116,7 @@ uint8_t * app_data_get_input_data (
    if (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN )
    {
-      /*
-      inputdata[0] = counter;
-      inputdata[1] = counter + 1;
-      inputdata[2] = counter + 2;
-      inputdata[3] = counter + 3;
-      counter += 10;
-      */
-
+ 
       *size = APP_GSDML_INPUT_DATA_DIGITAL_SIZE;
       *iops = PNET_IOXS_GOOD;
       return inputdata;
@@ -131,32 +125,17 @@ uint8_t * app_data_get_input_data (
    if (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT)
    {
-      /* Prepare digital input data
-       * Lowest 7 bits: Counter    Most significant bit: Button
-       */
-      /*inputdata[0] = counter++;
-      if (button_pressed)
-      {
-         inputdata[0] |= 0x80;
-      }
-      else
-      {
-         inputdata[0] &= 0x7F;
-      }
-      */
-   
+        
 
       // KKS-DCM
       // Read generator data here
       // Parse and fill in into inputdata buffer
-
-
-      inputdata[0] = counter;
-      inputdata[1] = counter + 1;
-      inputdata[2] = counter + 2;
-      inputdata[3] = counter + 3;
-      counter += 10;
-
+      for(i = 0;i<16;i++) {
+         inputdata[(i*4)+0] = counter++;  // Generator x Status0
+         inputdata[(i*4)+1] = counter++;  // Generator x Status1
+         inputdata[(i*4)+2] = counter++;  // Generator x Error
+         inputdata[(i*4)+3] = counter++;  // Generator x Actual Power
+      }
       *size = APP_GSDML_INPUT_DATA_DIGITAL_SIZE;
       *iops = PNET_IOXS_GOOD;
       return inputdata;
@@ -200,6 +179,7 @@ int app_data_set_output_data (
    uint16_t size)
 {
    bool led_state;
+   int16_t i;
 
    if (data == NULL)
    {
@@ -217,7 +197,11 @@ int app_data_set_output_data (
          // KKS-DCM
          // Write data to generator here
          // read from outputdata buffer and fill into generator data
-
+         for(i = 0;i<16;i++) {
+            //outputdata[(i*3)+0]; // Generator x Control0
+            //outputdata[(i*3)+1]; // Generator x Control1
+            //outputdata[(i*3)+2]; // Generator x Power Set
+         }  
 
          /* Most significant bit: LED */
          led_state = 0;//(outputdata[0] & 0x80) > 0;
