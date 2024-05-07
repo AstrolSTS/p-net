@@ -16,14 +16,14 @@
    <ProfileBody>
       <DeviceIdentity VendorID="0x0493" DeviceID="0x0002">
          <InfoText TextId="IDT_INFO_Device"/>
-         <VendorName Value="RT-Labs"/>
+         <VendorName Value="KKS Ultraschall AG"/>
       </DeviceIdentity>
       <DeviceFunction>
-         <Family MainFamily="I/O" ProductFamily="KKS"/>
+         <Family MainFamily="Gateway" ProductFamily="KKS Ultraschall AG"/>
       </DeviceFunction>
       <ApplicationProcess>
          <DeviceAccessPointList>
-            <DeviceAccessPointItem ID="IDD_1" PNIO_Version="V2.4" PhysicalSlots="0..4" ModuleIdentNumber="0x00000001" MinDeviceInterval="32" DNS_CompatibleName="rt-labs-dev" FixedInSlots="0" ObjectUUID_LocalIndex="1" DeviceAccessSupported="false" MultipleWriteSupported="true" CheckDeviceID_Allowed="true" NameOfStationNotTransferable="false" LLDP_NoD_Supported="true" ResetToFactoryModes="1..2">
+            <DeviceAccessPointItem ID="IDD_1" PNIO_Version="V2.4" PhysicalSlots="0..4" ModuleIdentNumber="0x00000001" MinDeviceInterval="32" DNS_CompatibleName="KKS-DCM" FixedInSlots="0" ObjectUUID_LocalIndex="1" DeviceAccessSupported="false" MultipleWriteSupported="true" CheckDeviceID_Allowed="true" NameOfStationNotTransferable="false" LLDP_NoD_Supported="true" ResetToFactoryModes="1..2">
             <!--
 Replace the tag above with the one below to support shared device.
 -->
@@ -33,8 +33,8 @@ Replace the tag above with the one below to support shared device.
                <ModuleInfo>
                   <Name TextId="IDT_MODULE_NAME_DAP1"/>
                   <InfoText TextId="IDT_INFO_DAP1"/>
-                  <VendorName Value="DCM-KKS"/>
-                  <OrderNumber Value="AC-10800-101"/>
+                  <VendorName Value="KKS Ultraschall AG"/>
+                  <OrderNumber Value="KKS-DCM"/>
                   <HardwareRelease Value="B02"/>
                   <SoftwareRelease Value="V1.3.3"/>
                </ModuleInfo>
@@ -155,10 +155,11 @@ Add additional PortSubmoduleItems to support additional ports
                <VirtualSubmoduleList>
                   <VirtualSubmoduleItem ID="IDSM_132" SubmoduleIdentNumber="0x0132" MayIssueProcessAlarm="true">
                      <IOData>
-                        <Input>
-                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Control0"></DataItem>
-                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Control1"></DataItem>
-                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Power_Set"></DataItem>
+                        <Input Consistency="All items consistency">
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Status0"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Status1"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Error"></DataItem>
+                           <DataItem DataType="Unsigned8" TextId="TOK_Input_GEN_1_Actual_Power"></DataItem>
                         </Input>
                         <Output Consistency="All items consistency">
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_1_Control0"></DataItem>
@@ -166,16 +167,6 @@ Add additional PortSubmoduleItems to support additional ports
                            <DataItem DataType="Unsigned8" TextId="TOK_Output_GEN_1_Power_Set"></DataItem>
                         </Output>
                      </IOData>
-                     <RecordDataList>
-                        <ParameterRecordDataItem Index="123" Length="4">
-                           <Name TextId="TOK_sample_parameter_1"/>
-                           <Ref DataType="Unsigned32" ByteOffset="0" DefaultValue="1" AllowedValues="0..99" Changeable="true" Visible="true" TextId="TOK_Demo_1"/>
-                        </ParameterRecordDataItem>
-                        <ParameterRecordDataItem Index="124" Length="4">
-                           <Name TextId="TOK_sample_parameter_2"/>
-                           <Ref DataType="Unsigned32" ByteOffset="0" DefaultValue="2" AllowedValues="0..999" Changeable="true" Visible="true" TextId="TOK_Demo_2"/>
-                        </ParameterRecordDataItem>
-                     </RecordDataList>
                      <ModuleInfo>
                         <Name TextId="TOK_Name_Module_I8O8"/>
                         <InfoText TextId="TOK_InfoText_Module_I8O8"/>
@@ -231,8 +222,8 @@ Add additional PortSubmoduleItems to support additional ports
          </GraphicsList>
          <ExternalTextList>
             <PrimaryLanguage>
-               <Text TextId="IDT_INFO_Device" Value="DCM KKS"/>
-               <Text TextId="IDT_MODULE_NAME_DAP1" Value="DCM KKS Master Generator Module"/>
+               <Text TextId="IDT_INFO_Device" Value="KKS-DCM PROFINET GATEWAY"/>
+               <Text TextId="IDT_MODULE_NAME_DAP1" Value="Ultraschall Generator Profinet Gateway"/>
                <Text TextId="IDT_INFO_DAP1" Value="KKS https://kks-surfacetreatment.com/"/>
                <Text TextId="IDT_CUSTOM_DIAG_1" Value="Custom diagnosis in USI format"/>
                <Text TextId="IDT_CUSTOM_DIAG_1_VALUE" Value="Custom diagnosis value"/>
@@ -243,21 +234,19 @@ Add additional PortSubmoduleItems to support additional ports
                <!--module name-->
                <Text TextId="TOK_Name_Module_I8" Value="INPUTS"/>
                <Text TextId="TOK_Name_Module_O8" Value="Outputs"/>
-               <Text TextId="TOK_Name_Module_I8O8" Value="Inputs/Outputs"/>
+               <Text TextId="TOK_Name_Module_I8O8" Value="Power Module"/>
                <Text TextId="TOK_Name_Module_Echo" Value="Echo Module"/>
                <!--module info -->
                <Text TextId="TOK_InfoText_Module_I8" Value="Inputs"/>
                <Text TextId="TOK_InfoText_Module_O8" Value="Outputs"/>
-               <Text TextId="TOK_InfoText_Module_I8O8" Value="Inputs/Outputs"/>
+               <Text TextId="TOK_InfoText_Module_I8O8" Value="Power Module"/>
                <Text TextId="TOK_InfoText_Module_Echo" Value="Echo with adjustable gain"/>
                <!--dataitem name-->
                <Text TextId="TOK_Input_GEN_1_Status0" Value="Generator 1 Status0"/>
                <Text TextId="TOK_Input_GEN_1_Status1" Value="Generator 1 Status1"/>
                <Text TextId="TOK_Input_GEN_1_Error" Value="Generator 1 Error"/>
                <Text TextId="TOK_Input_GEN_1_Actual_Power" Value="Generator 1 Actual Power"/>
-               <Text TextId="TOK_Input_GEN_1_Control0" Value="Generator 1 Control0"/>
-               <Text TextId="TOK_Input_GEN_1_Control1" Value="Generator 1 Control1"/>
-               <Text TextId="TOK_Input_GEN_1_Power_Set" Value="Generator 1 Power Set"/>
+               
                <Text TextId="TOK_Output_GEN_1_Control0" Value="Generator 1 Control0"/>
                <Text TextId="TOK_Output_GEN_1_Control1" Value="Generator 1 Control1"/>
                <Text TextId="TOK_Output_GEN_1_Power_Set" Value="Generator 1 Power Set"/>
@@ -266,8 +255,6 @@ Add additional PortSubmoduleItems to support additional ports
                <Text TextId="TOK_Output_DataItem_Echo_Float32" Value="Output float from controller"/>
                <Text TextId="TOK_Output_DataItem_Echo_Unsigned32" Value="Output int from controller"/>
                <!--ParameterRecordDataItem name-->
-               <Text TextId="TOK_sample_parameter_1" Value="Parameter 1"/>
-               <Text TextId="TOK_sample_parameter_2" Value="Parameter 2"/>
                <Text TextId="TOK_sample_parameter_Echo" Value="Gain for echo module"/>
                <Text TextId="TOK_Demo_1" Value="Demo 1"/>
                <Text TextId="TOK_Demo_2" Value="Demo 2"/>
