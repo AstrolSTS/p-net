@@ -126,7 +126,7 @@ static int ubus_call(void) {
       APP_LOG_FATAL("Failed to call ubus method %s", method);
    }
 
-   result = blobmsg_format_json(buf.head, true);
+   result = blobmsg_format_json(b.head, true);
    if (result) {
       APP_LOG_FATAL("System board info: %s", result);
       free(result);
