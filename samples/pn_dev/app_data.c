@@ -104,13 +104,14 @@ void init_kks_dcm(void) {
 
 static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 {
-	/*
+	
    char *str;
 	str = blobmsg_format_json_indent(msg, true, 0);
 	APP_LOG_FATAL("Received data:\n%s\n", str);
 	free(str);
-   */
+   
 
+/*
    const struct blobmsg_policy msg_attrs = {
 		.name = "result", .type = BLOBMSG_TYPE_ARRAY
 	};
@@ -127,7 +128,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 
    data = blobmsg_get_string(attr);
 	APP_LOG_FATAL("\nData: %s", attr);
-
+*/
 }
 
 static int ubus_call(void) {
