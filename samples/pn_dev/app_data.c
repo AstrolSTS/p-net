@@ -112,7 +112,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    */
 
    const struct blobmsg_policy msg_attrs = {
-		.name = "kernel", .type = BLOBMSG_TYPE_STRING
+		.name = "regname", .type = BLOBMSG_TYPE_STRING
 	};
    struct blob_attr *attr;
 	const char *data;
@@ -140,13 +140,13 @@ static int ubus_call(void) {
       APP_LOG_FATAL("Failed to connect to ubus");
       return -1;
    }
-
-   if (ubus_lookup_id(ctx, "system", &id)) {
+ubus call kksdcmd api 
+   if (ubus_lookup_id(ctx, "kksdcmd", &id)) {
       APP_LOG_FATAL("Failed to lookup Ubus object");
       return -1;
    }
    blob_buf_init(&b,0);
-   const char *method = "board";
+   const char *method = "{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":5}}";
 
    if(ubus_invoke(ctx, id, method, b.head, dump_cb, 0, 0)) {
       APP_LOG_FATAL("Failed to call ubus method %s", method);
