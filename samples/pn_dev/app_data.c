@@ -149,7 +149,7 @@ static int ubus_call(void) {
    const char *method = "api";
    const char *parameter = "{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":5}}";
 
-   blobmsg_parse_json(parameter, strlen(parameter), &b);
+   blobmsg_add_json_from_string(&b, parameter);
 
    if(ubus_invoke(ctx, id, method, b.head, dump_cb, 0, 0)) {
       APP_LOG_FATAL("Failed to call ubus method %s", method);
