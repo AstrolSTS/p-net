@@ -109,6 +109,8 @@ static int ubus_call(void) {
 	uint32_t id;
    char *result;
 
+   APP_LOG_FATAL("ubus_call");
+
    ctx = ubus_connect(ubus_socket);
    if (!ctx) {
       APP_LOG_FATAL("Failed to connect to ubus");
