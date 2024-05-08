@@ -147,7 +147,7 @@ uint8_t * app_data_get_input_data (
    {
       
       struct blob_buf b;
-      blob_buf_init(&b);
+      blob_buf_init(&b,0);
       ubus_invoke(ctx, "system", "board", b.head, ubus_callback, NULL, 1000);
 
 
