@@ -29,8 +29,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include "libubus.h"
-#include <libubox/ustream.h>
+#include <libubus.h>
 #include <libubox/blobmsg_json.h>
 
 #define APP_DATA_DEFAULT_OUTPUT_DATA 0
