@@ -112,7 +112,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    */
 
    const struct blobmsg_policy msg_attrs = {
-		.name = "regname", .type = BLOBMSG_TYPE_STRING
+		.name = "result", .type = BLOBMSG_TYPE_ARRAY
 	};
    struct blob_attr *attr;
 	const char *data;
