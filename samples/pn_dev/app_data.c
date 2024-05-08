@@ -140,7 +140,7 @@ static int ubus_call(void) {
       APP_LOG_FATAL("Failed to connect to ubus");
       return -1;
    }
-ubus call kksdcmd api 
+
    if (ubus_lookup_id(ctx, "kksdcmd", &id)) {
       APP_LOG_FATAL("Failed to lookup Ubus object");
       return -1;
