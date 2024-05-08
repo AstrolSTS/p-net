@@ -104,31 +104,50 @@ void init_kks_dcm(void) {
 
 static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 {
-	
+	/*
    char *str;
 	str = blobmsg_format_json_indent(msg, true, 0);
 	APP_LOG_FATAL("Received data:\n%s\n", str);
 	free(str);
-   
+   */
 
-/*
-   const struct blobmsg_policy msg_attrs = {
+
+   const struct blobmsg_policy result_attrs = {
 		.name = "result", .type = BLOBMSG_TYPE_ARRAY
 	};
    struct blob_attr *attr;
 	const char *data;
 
-   blobmsg_parse(&msg_attrs, 1, &attr, blobmsg_data(msg), blobmsg_len(msg));
+   blobmsg_parse(&result_attrs, 1, &attr, blobmsg_data(msg), blobmsg_len(msg));
 
    if (!attr) {
 		APP_LOG_FATAL("Invalid argument\n");
 	}
 
+   const struct blobmsg_policy regname_attrs = {
+		.name = "regname", .type = BLOBMSG_TYPE_STRING
+	};
 
+   blobmsg_parse(&regname_attrs, 1, &attr, blobmsg_data(attr), blobmsg_len(attr));
+
+/*
+   struct blob_attr *last_attr;
+	struct blobmsg_hdr *hdr;
+
+   blob->head, blob_len(blob->head)
+
+   __blob_for_each_attr(attr, msg->head, len) {
+		hdr = blob_data(attr);
+		if (!array)
+			indent_printf(indent + 1, "%s : ", hdr->name);
+		dump_attr_data(blobmsg_data(attr), blobmsg_data_len(attr), blob_id(attr), 0, indent + 1);
+		last_attr = attr;
+	}
+*/
 
    data = blobmsg_get_string(attr);
-	APP_LOG_FATAL("\nData: %s", attr);
-*/
+	APP_LOG_FATAL("\nData: %s", data);
+
 }
 
 static int ubus_call(void) {
