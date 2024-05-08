@@ -135,6 +135,7 @@ static int ubus_call(void) {
    blob_buf_free(&b);
    ubus_free(ctx);
    
+   return 0;
 }
 
 uint8_t * app_data_get_input_data (
