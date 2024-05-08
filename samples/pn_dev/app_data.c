@@ -59,7 +59,6 @@ static uint8_t counter = 0;
 static uint8_t echo_inputdata[APP_GSDML_INPUT_DATA_ECHO_SIZE] = {0};
 static uint8_t echo_outputdata[APP_GSDML_OUTPUT_DATA_ECHO_SIZE] = {0};
 
-static struct ubus_context *ctx;
 
 CC_PACKED_BEGIN
 typedef struct CC_PACKED app_echo_data
@@ -97,19 +96,43 @@ static void app_handle_data_led_state (bool led_state)
 }
 
 void init_kks_dcm(void) {
-   ctx = ubus_connect(NULL);
-   if (!ctx) {
-      APP_LOG_FATAL("Failed to connect to ubus");
-   }
+  
 }
 
 
-static void ubus_callback(struct ubus_request *req, int type, struct blob_attr *msg)
-{
-   char *json_str = blobmsg_format_json(msg, true);
-   APP_LOG_FATAL("Received response: %s", json_str);
 
-   free(json_str);
+static void ubus_call(void) {
+   struct ubus_context *ctx;
+   struct blob_buf b;
+   char *result;
+
+   ctx = ubus_connect(NULL);
+   if (!ctx) {
+      APP_LOG_FATAL("Failed to connect to ubus");
+      return -1;
+   }
+
+   blob_buf_init(&b,0);
+   
+   if (ubus_lookup_id(ctx, "system", &b.head)) {
+      APP_LOG_FATAL("Failed to lookup Ubus object");
+      return -1;
+   }
+
+   const char *method = "board";
+
+   if(ubus_invoke(ctx, b.head, method, b.head, (ubus_data_handler_t) {
+      APP_LOG_FATAL("Failed to call ubus method %s", method);
+   });
+    
+   result = blobmsg_format_json(buf.head, true);
+   if (result) {
+      APP_LOG_FATAL("System board info: %s", result);
+      free(result);
+   }
+
+   blob_buf_free(&b);
+   ubus_free(ctx);
 }
 
 uint8_t * app_data_get_input_data (
@@ -146,10 +169,7 @@ uint8_t * app_data_get_input_data (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT)
    {
       
-      struct blob_buf b;
-      blob_buf_init(&b,0);
-      ubus_invoke(ctx, "system", "board", b.head, ubus_callback, NULL, 1000);
-
+      ubus_call();
 
       // KKS-DCM
       // Read generator data here
