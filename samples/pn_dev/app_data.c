@@ -102,14 +102,20 @@ void init_kks_dcm(void) {
   
 }
 
-
+static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
+{
+	char *str;
+	str = blobmsg_format_json_indent(msg, true, 0);
+	APP_LOG_FATAL("Received data:\n%s\n", str);
+	free(str);
+}
 
 static int ubus_call(void) {
    const char *ubus_socket = NULL;
 	uint32_t id;
    char *result;
 
-   APP_LOG_FATAL("ubus_call");
+   APP_LOG_FATAL("\nubus_call");
 
    ctx = ubus_connect(ubus_socket);
    if (!ctx) {
@@ -124,16 +130,17 @@ static int ubus_call(void) {
    blob_buf_init(&b,0);
    const char *method = "board";
 
-   if(ubus_invoke(ctx, id, method, b.head, NULL, 0, 3000)) {
+   if(ubus_invoke(ctx, id, method, b.head, dump_cb, 0, 0)) {
       APP_LOG_FATAL("Failed to call ubus method %s", method);
    }
 
+/*
    result = blobmsg_format_json(b.head, true);
    if (result) {
       APP_LOG_FATAL("System board info: %s", result);
       free(result);
    }
-
+*/
    blob_buf_free(&b);
    ubus_free(ctx);
    
