@@ -207,9 +207,8 @@ target_include_directories(profinet
 
 target_link_libraries(profinet PUBLIC osal
   ubus
-  json-c 
   blobmsg_json
-  libblob
+  ubox
   )
 
 install (
