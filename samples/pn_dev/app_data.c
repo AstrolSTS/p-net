@@ -121,7 +121,6 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 
    if (!attr) {
 		APP_LOG_FATAL("Invalid argument\n");
-		return UBUS_STATUS_INVALID_ARGUMENT;
 	}
 
    data = blobmsg_get_string(attr);
