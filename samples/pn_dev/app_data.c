@@ -125,7 +125,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 	}
 
    data = blobmsg_get_string(attr);
-	APP_LOG_FATAL("Received ubus notify '%s': %s\n", method, data);
+	APP_LOG_FATAL("\nData: %s", data);
 
 }
 
