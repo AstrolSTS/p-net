@@ -104,10 +104,29 @@ void init_kks_dcm(void) {
 
 static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 {
-	char *str;
+	/*
+   char *str;
 	str = blobmsg_format_json_indent(msg, true, 0);
 	APP_LOG_FATAL("Received data:\n%s\n", str);
 	free(str);
+   */
+
+   const struct blobmsg_policy msg_attrs = {
+		.name = "kernel", .type = BLOBMSG_TYPE_STRING
+	};
+   struct blob_attr *attr;
+	const char *data;
+
+   blobmsg_parse(&msg_attrs, 1, &attr, blobmsg_data(msg), blobmsg_len(msg));
+
+   if (!attr) {
+		APP_LOG_FATAL("Invalid argument\n");
+		return UBUS_STATUS_INVALID_ARGUMENT;
+	}
+
+   data = blobmsg_get_string(attr);
+	APP_LOG_FATAL("Received ubus notify '%s': %s\n", method, data);
+
 }
 
 static int ubus_call(void) {
