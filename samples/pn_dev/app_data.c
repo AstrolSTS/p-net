@@ -75,6 +75,9 @@ CC_PACKED_END
 CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_INPUT_DATA_ECHO_SIZE);
 CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_OUTPUT_DATA_ECHO_SIZE);
 
+static struct ubus_context *ctx;
+static struct blob_buf b;
+
 /**
  * Set LED state.
  *
@@ -103,7 +106,6 @@ void init_kks_dcm(void) {
 
 static int ubus_call(void) {
    const char *ubus_socket = NULL;
-   static struct ubus_request req;
 	uint32_t id;
    char *result;
 
@@ -249,7 +251,7 @@ int app_data_set_output_data (
 
          /* Most significant bit: LED */
          led_state = 0;//(outputdata[0] & 0x80) > 0;
-         //app_handle_data_led_state (led_state);
+         app_handle_data_led_state (led_state);
 
          return 0;
       }
