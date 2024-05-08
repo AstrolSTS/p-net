@@ -206,8 +206,8 @@ target_include_directories(profinet
   )
 
 target_link_libraries(profinet PUBLIC osal
-  ubus
-  blobmsg-json
+  libubus
+  libblobmsg-json
   )
 
 install (
