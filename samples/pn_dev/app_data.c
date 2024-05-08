@@ -146,16 +146,9 @@ uint8_t * app_data_get_input_data (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT)
    {
       
-      struct blob_buf req = { 0 };
-      blob_buf_init(&req);
-      blobmsg_add_string(&req, "message", "Hello, OpenWrt!");
-
-      struct ubus_request request = { 0 };
-      request.path = "system";
-      request.method = "board";
-      request.data = req.head;
-
-      ubus_invoke(ctx, &request, ubus_callback, NULL, 5000);
+      struct blob_buf b;
+      blob_buf_init(&b);
+      ubus_invoke(ctx, "system", "board", b.head, ubus_callback, NULL, 1000);
 
 
       // KKS-DCM
