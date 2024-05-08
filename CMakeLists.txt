@@ -205,10 +205,7 @@ target_include_directories(profinet
   src/device
   )
 
-target_link_libraries(profinet PUBLIC osal
-  libubus
-  libblobmsg-json
-  )
+target_link_libraries(profinet PUBLIC osal)
 
 install (
   TARGETS profinet
