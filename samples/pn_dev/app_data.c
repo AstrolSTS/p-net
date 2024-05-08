@@ -101,7 +101,7 @@ void init_kks_dcm(void) {
 
 
 
-static void ubus_call(void) {
+static int ubus_call(void) {
    struct ubus_context *ctx;
    struct blob_buf b;
    char *result;
