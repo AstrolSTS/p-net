@@ -113,7 +113,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 static int ubus_call(void) {
    const char *ubus_socket = NULL;
 	uint32_t id;
-   char *result;
+   //char *result;
 
    APP_LOG_FATAL("\nubus_call");
 
