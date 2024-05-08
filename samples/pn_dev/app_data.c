@@ -102,29 +102,28 @@ void init_kks_dcm(void) {
 
 
 static int ubus_call(void) {
-   struct ubus_context *ctx;
-   struct blob_buf b;
+   const char *ubus_socket = NULL;
+   static struct ubus_request req;
+	uint32_t id;
    char *result;
 
-   ctx = ubus_connect(NULL);
+   ctx = ubus_connect(ubus_socket);
    if (!ctx) {
       APP_LOG_FATAL("Failed to connect to ubus");
       return -1;
    }
 
-   blob_buf_init(&b,0);
-   
-   if (ubus_lookup_id(ctx, "system", &b.head)) {
+   if (ubus_lookup_id(ctx, "system", &id)) {
       APP_LOG_FATAL("Failed to lookup Ubus object");
       return -1;
    }
-
+   blob_buf_init(&b,0);
    const char *method = "board";
 
-   if(ubus_invoke(ctx, b.head, method, b.head, (ubus_data_handler_t) {
+   if(ubus_invoke(ctx, id, method, b.head, NULL, 0, 3000)) {
       APP_LOG_FATAL("Failed to call ubus method %s", method);
-   });
-    
+   }
+
    result = blobmsg_format_json(buf.head, true);
    if (result) {
       APP_LOG_FATAL("System board info: %s", result);
@@ -133,6 +132,7 @@ static int ubus_call(void) {
 
    blob_buf_free(&b);
    ubus_free(ctx);
+   
 }
 
 uint8_t * app_data_get_input_data (
