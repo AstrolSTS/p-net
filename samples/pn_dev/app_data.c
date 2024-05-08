@@ -146,7 +146,7 @@ static int ubus_call(void) {
       return -1;
    }
    blob_buf_init(&b,0);
-   const char *method = "{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":5}}";
+   const char *method = "'{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":5}}'";
 
    if(ubus_invoke(ctx, id, method, b.head, dump_cb, 0, 0)) {
       APP_LOG_FATAL("Failed to call ubus method %s", method);
