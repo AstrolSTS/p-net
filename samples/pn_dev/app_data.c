@@ -116,7 +116,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 		.name = "result", .type = BLOBMSG_TYPE_ARRAY
 	};
    struct blob_attr *attr;
-	const char *data;
+	//const char *data;
 
    blobmsg_parse(&result_attrs, 1, &attr, blobmsg_data(msg), blobmsg_len(msg));
 
