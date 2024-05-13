@@ -32,6 +32,7 @@
 #include <libubus.h>
 #include <libubox/blobmsg_json.h>
 #include <json-c/json_object.h>
+#include <json-c/json_tokener.h>
 
 #define APP_DATA_DEFAULT_OUTPUT_DATA 0
 
