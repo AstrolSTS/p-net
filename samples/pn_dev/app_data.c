@@ -79,7 +79,7 @@ CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_OUTPUT_DATA_ECHO_SIZE);
 static struct ubus_context *ctx;
 static struct blob_buf b;
 
-typdef struct {
+typedef struct {
    uint8_t status0;
    uint8_t status1;
    uint8_t error;
