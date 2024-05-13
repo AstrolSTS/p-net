@@ -31,8 +31,7 @@
 #include <unistd.h>
 #include <libubus.h>
 #include <libubox/blobmsg_json.h>
-#include <json-c/json_object.h>
-#include <json-c/json_tokener.h>
+#include <json-c/json.h>
 
 #define APP_DATA_DEFAULT_OUTPUT_DATA 0
 
@@ -106,28 +105,38 @@ void init_kks_dcm(void) {
 
 static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 {
-   char *json_string;
-	json_string = blobmsg_format_json_indent(msg, true, 0);
+   char *blobmsg_string;
+	blobmsg_string = blobmsg_format_json_indent(msg, true, 0);
 
-   struct json_object *json_obj = json_tokener_parse(json_string);
-   struct json_object *array_obj;
-   json_object_object_get_ex(json_obj, "", &array_obj);
-   int array_len = json_object_array_length(array_obj);
+   // Parse the JSON string
+   struct json_object *parsed_json = json_tokener_parse(blobmsg_string);
 
-   for (int i = 0; i < array_len; i++) {
-      struct json_object *obj = json_object_array_get_idx(array_obj, i);
+   // Get the length of the JSON array
+   int array_length = json_object_array_length(parsed_json);
 
+   // Iterate through the array to find the value for regidx 14
+   for(int i = 0; i < array_length; i++){
+      struct json_object *json_obj = json_object_array_get_idx(parsed_json, i);
+      struct json_object *regidx_obj, *value_obj;
       int regidx;
-      json_object_object_get_ex(obj, "regidx", &regidx);
+      int value;
 
-      if (regidx == 14) {
-         struct json_object *value_obj;
-         json_object_object_get_ex(obj, "value", &value_obj);
-         int value = json_object_get_int(value_obj);
+      // Get the regidx value
+      json_object_object_get_ex(json_obj, "regidx", &regidx_obj);
+      regidx = json_object_get_int(regidx_obj);
 
-         APP_LOG_FATAL("Value for regidx 14: %d", value);
-        }
-    }
+      // Check if regidx is 14
+      if(regidx == 14){
+         // Get the value for regidx 14
+         json_object_object_get_ex(json_obj, "value", &value_obj);
+         value = json_object_get_int(value_obj);
+         printf("Value for regidx 14 is: %d", value);
+         break;
+      }
+   }
+
+    // Free the memory
+    json_object_put(parsed_json);
 
 
 
