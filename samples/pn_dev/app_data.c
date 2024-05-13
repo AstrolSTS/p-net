@@ -31,6 +31,7 @@
 #include <unistd.h>
 #include <libubus.h>
 #include <libubox/blobmsg_json.h>
+#include <json-c/json_object.h>
 
 #define APP_DATA_DEFAULT_OUTPUT_DATA 0
 
@@ -104,6 +105,31 @@ void init_kks_dcm(void) {
 
 static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 {
+   char *json_string;
+	json_string = blobmsg_format_json_indent(msg, true, 0);
+
+   struct json_object *json_obj = json_tokener_parse(json_string);
+   struct json_object *array_obj;
+   json_object_object_get_ex(json_obj, "", &array_obj);
+   int array_len = json_object_array_length(array_obj);
+
+   for (int i = 0; i < array_len; i++) {
+      struct json_object *obj = json_object_array_get_idx(array_obj, i);
+
+      int regidx;
+      json_object_object_get_ex(obj, "regidx", &regidx);
+
+      if (regidx == 14) {
+         struct json_object *value_obj;
+         json_object_object_get_ex(obj, "value", &value_obj);
+         int value = json_object_get_int(value_obj);
+
+         APP_LOG_FATAL("Value for regidx 14: %d", value);
+        }
+    }
+
+
+
 	/*
    char *str;
 	str = blobmsg_format_json_indent(msg, true, 0);
@@ -111,7 +137,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 	free(str);
    */
 
-
+/*
    const struct blobmsg_policy result_attrs = {
 		.name = "result", .type = BLOBMSG_TYPE_ARRAY
 	};
@@ -123,6 +149,8 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    if (!attr) {
 		APP_LOG_FATAL("Invalid argument\n");
 	}
+   */
+
 /*
    const struct blobmsg_policy regname_attrs = {
 		.name = "regname", .type = BLOBMSG_TYPE_STRING
@@ -131,11 +159,12 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    struct blob_attr *reg_attr;
    blobmsg_parse(&regname_attrs, 1, &reg_attr, blobmsg_data(attr), blobmsg_len(attr));
 */
+/*
    char *str;
    str = blobmsg_format_json_indent(attr, true, 0);
    APP_LOG_FATAL("Received data:\n%s\n", str);
    free(str);
-
+*/
 
    
 
