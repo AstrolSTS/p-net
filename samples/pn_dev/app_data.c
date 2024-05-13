@@ -123,16 +123,16 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    if (!attr) {
 		APP_LOG_FATAL("Invalid argument\n");
 	}
-
+/*
    const struct blobmsg_policy regname_attrs = {
 		.name = "regname", .type = BLOBMSG_TYPE_STRING
 	};
 
    struct blob_attr *reg_attr;
    blobmsg_parse(&regname_attrs, 1, &reg_attr, blobmsg_data(attr), blobmsg_len(attr));
-
+*/
    char *str;
-   str = blobmsg_format_json_indent(reg_attr, true, 0);
+   str = blobmsg_format_json_indent(attr, true, 0);
    APP_LOG_FATAL("Received data:\n%s\n", str);
    free(str);
 
