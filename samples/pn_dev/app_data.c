@@ -108,40 +108,36 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    char *blobmsg_string;
 	blobmsg_string = blobmsg_format_json_indent(msg, true, 0);
 
-   APP_LOG_FATAL("Received data:\n%s\n", blobmsg_string);
-	free(blobmsg_string);
-/*
-   // Parse the JSON string
-   struct json_object *parsed_json = json_tokener_parse(blobmsg_string);
+  // APP_LOG_FATAL("Received data:\n%s\n", blobmsg_string);
+//	free(blobmsg_string);
 
-   // Get the length of the JSON array
-   int array_length = json_object_array_length(parsed_json);
-
-   // Iterate through the array to find the value for regidx 14
-   for(int i = 0; i < array_length; i++){
-      struct json_object *json_obj = json_object_array_get_idx(parsed_json, i);
-      struct json_object *regidx_obj, *value_obj;
-      int regidx;
-      int value;
-
-      // Get the regidx value
-      json_object_object_get_ex(json_obj, "regidx", &regidx_obj);
-      regidx = json_object_get_int(regidx_obj);
-
-      // Check if regidx is 14
-      if(regidx == 14){
-         // Get the value for regidx 14
-         json_object_object_get_ex(json_obj, "value", &value_obj);
-         value = json_object_get_int(value_obj);
-         APP_LOG_FATAL("Value for regidx 14 is: %d", value);
-         break;
+   json_object *root = json_tokener_parse(blobmsg_string);
+   if (root == NULL) {
+      APP_LOG_FATAL("Error parsing JSON");
+   }
+   
+   json_object *result_array, *result_obj, *value_obj;
+   int value = 0;
+   
+   if (json_object_object_get_ex(root, "result", &result_array)) {
+      int array_len = json_object_array_length(result_array);
+      for (int i = 0; i < array_len; i++) {
+         result_obj = json_object_array_get_idx(result_array, i);
+         json_object *regidx_obj;
+         if (json_object_object_get_ex(result_obj, "regidx", &regidx_obj)) {
+               if (json_object_get_int(regidx_obj) == 14) {
+                  if (json_object_object_get_ex(result_obj, "value", &value_obj)) {
+                     value = json_object_get_int(value_obj);
+                     break;
+                  }
+               }
+         }
       }
    }
-
-    // Free the memory
-    json_object_put(parsed_json);
-
-*/
+    
+   APP_LOG_FATAL("Value for regidx 14: %d", value);
+   
+   json_object_put(root);
 
 	/*
    char *str;
