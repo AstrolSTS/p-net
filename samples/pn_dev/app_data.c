@@ -128,16 +128,14 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 		.name = "regname", .type = BLOBMSG_TYPE_STRING
 	};
 
-   int16_t i;
-   __blob_for_each_attr(attr, blobmsg_data(attr), blobmsg_len(attr)) {
+   struct blob_attr *reg_attr;
+   blobmsg_parse(&regname_attrs, 1, &reg_attr, blobmsg_data(attr), blobmsg_len(attr));
 
-      char *str;
-      str = blobmsg_format_json_indent(attr, true, 0);
-      APP_LOG_FATAL("Index: %d | ", i);
-      APP_LOG_FATAL("Received data:\n%s\n", str);
-      free(str);
+   char *str;
+   str = blobmsg_format_json_indent(reg_attr, true, 0);
+   APP_LOG_FATAL("Received data:\n%s\n", str);
+   free(str);
 
-   }
 
    
 
