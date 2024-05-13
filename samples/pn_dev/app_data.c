@@ -108,6 +108,9 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    char *blobmsg_string;
 	blobmsg_string = blobmsg_format_json_indent(msg, true, 0);
 
+   APP_LOG_FATAL("Received data:\n%s\n", blobmsg_string);
+	free(str);
+/*
    // Parse the JSON string
    struct json_object *parsed_json = json_tokener_parse(blobmsg_string);
 
@@ -138,7 +141,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
     // Free the memory
     json_object_put(parsed_json);
 
-
+*/
 
 	/*
    char *str;
