@@ -31,7 +31,7 @@
 #include <unistd.h>
 #include <libubus.h>
 #include <libubox/blobmsg_json.h>
-#include <libjson-c/json_object.h>
+#include <json-c/json_object.h>
 
 #define APP_DATA_DEFAULT_OUTPUT_DATA 0
 
