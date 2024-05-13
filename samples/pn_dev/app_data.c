@@ -31,7 +31,7 @@
 #include <unistd.h>
 #include <libubus.h>
 #include <libubox/blobmsg_json.h>
-#include <json.h>
+#include <json-c.h>
 #include <json_tokener.h>
 #include <json_object.h>
 
