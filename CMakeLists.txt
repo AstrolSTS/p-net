@@ -209,7 +209,7 @@ target_link_libraries(profinet PUBLIC osal
   ubus
   blobmsg_json
   ubox
-  json-c
+  json
   )
 
 install (
