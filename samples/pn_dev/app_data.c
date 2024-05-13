@@ -79,6 +79,18 @@ CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_OUTPUT_DATA_ECHO_SIZE);
 static struct ubus_context *ctx;
 static struct blob_buf b;
 
+typdef struct {
+   uint8_t status0;
+   uint8_t status1;
+   uint8_t error;
+   uint8_t actualPower;
+   uint8_t control0;
+   uint8_t control1;
+   uint8_t powerSet;
+} GEN_DATA_TYPE;
+
+static GEN_DATA_TYPE genData[APP_NO_OF_GENERATORS] = {0};
+
 /**
  * Set LED state.
  *
@@ -117,25 +129,43 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    }
    
    json_object *result_array, *result_obj, *value_obj;
-   int value = 0;
+   int genIndex = 0;
    
    if (json_object_object_get_ex(root, "result", &result_array)) {
       int array_len = json_object_array_length(result_array);
       for (int i = 0; i < array_len; i++) {
          result_obj = json_object_array_get_idx(result_array, i);
-         json_object *regidx_obj;
-         if (json_object_object_get_ex(result_obj, "regidx", &regidx_obj)) {
-               if (json_object_get_int(regidx_obj) == 14) {
-                  if (json_object_object_get_ex(result_obj, "value", &value_obj)) {
-                     value = json_object_get_int(value_obj);
-                     break;
-                  }
+         json_object *regname_obj;
+         if (json_object_object_get_ex(result_obj, "regname", &regname_obj)) {
+            if (json_object_get_string(regname_obj) == "status0") {
+               if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
+                  genData[genIndex].status0 = json_object_get_int(value_obj);
                }
+            }
+            if (json_object_get_string(regname_obj) == "status1") {
+               if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
+                  genData[genIndex].status1 = json_object_get_int(value_obj);
+               }
+            }
+            if (json_object_get_string(regname_obj) == "error") {
+               if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
+                  genData[genIndex].error = json_object_get_int(value_obj);
+               }
+            }
+            if (json_object_get_string(regname_obj) == "actualPower") {
+               if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
+                  genData[genIndex].actualPower = json_object_get_int(value_obj);
+               }
+            }
          }
       }
    }
     
-   APP_LOG_FATAL("Value for regidx 14: %d", value);
+   APP_LOG_FATAL("\nStatus0: %d", genData[genIndex].status0);
+   APP_LOG_FATAL(" | Status1: %d", genData[genIndex].status1);
+   APP_LOG_FATAL(" | Error: %d", genData[genIndex].error);
+   APP_LOG_FATAL(" | Power: %d", genData[genIndex].actualPower);
+   
    
    json_object_put(root);
 
