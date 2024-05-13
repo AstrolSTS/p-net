@@ -130,7 +130,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
          // Get the value for regidx 14
          json_object_object_get_ex(json_obj, "value", &value_obj);
          value = json_object_get_int(value_obj);
-         printf("Value for regidx 14 is: %d", value);
+         APP_LOG_FATAL("Value for regidx 14 is: %d", value);
          break;
       }
    }
