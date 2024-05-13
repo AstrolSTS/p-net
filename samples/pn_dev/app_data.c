@@ -169,66 +169,6 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    
    json_object_put(root);
 
-	/*
-   char *str;
-	str = blobmsg_format_json_indent(msg, true, 0);
-	APP_LOG_FATAL("Received data:\n%s\n", str);
-	free(str);
-   */
-
-/*
-   const struct blobmsg_policy result_attrs = {
-		.name = "result", .type = BLOBMSG_TYPE_ARRAY
-	};
-   struct blob_attr *attr;
-	//const char *data;
-
-   blobmsg_parse(&result_attrs, 1, &attr, blobmsg_data(msg), blobmsg_len(msg));
-
-   if (!attr) {
-		APP_LOG_FATAL("Invalid argument\n");
-	}
-   */
-
-/*
-   const struct blobmsg_policy regname_attrs = {
-		.name = "regname", .type = BLOBMSG_TYPE_STRING
-	};
-
-   struct blob_attr *reg_attr;
-   blobmsg_parse(&regname_attrs, 1, &reg_attr, blobmsg_data(attr), blobmsg_len(attr));
-*/
-/*
-   char *str;
-   str = blobmsg_format_json_indent(attr, true, 0);
-   APP_LOG_FATAL("Received data:\n%s\n", str);
-   free(str);
-*/
-
-   
-
-   
-
-   //blobmsg_parse(&regname_attrs, 1, &attr, blobmsg_data(attr), blobmsg_len(attr));
-
-/*
-   struct blob_attr *last_attr;
-	struct blobmsg_hdr *hdr;
-
-   blob->head, blob_len(blob->head)
-
-   __blob_for_each_attr(attr, msg->head, len) {
-		hdr = blob_data(attr);
-		if (!array)
-			indent_printf(indent + 1, "%s : ", hdr->name);
-		dump_attr_data(blobmsg_data(attr), blobmsg_data_len(attr), blob_id(attr), 0, indent + 1);
-		last_attr = attr;
-	}
-*/
-
-   //data = blobmsg_get_string(attr);
-	//APP_LOG_FATAL("\nData: %s", data);
-
 }
 
 static int ubus_call(void) {
@@ -248,24 +188,23 @@ static int ubus_call(void) {
       APP_LOG_FATAL("Failed to lookup Ubus object");
       return -1;
    }
-   blob_buf_init(&b,0);
+
+   
    const char *method = "api";
-   const char *parameter = "{\"coreregs\":{ \"generator\":\"1\",\"cmd\": \"read\", \"index\": 13, \"count\":5}}";
+   char parameter[128];
+   int16_t i;
+   for(i=0;i<2;i++) {
+      blob_buf_init(&b,0);
+      sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"read\", \"index\": 13, \"count\":5}}",i);
 
-   blobmsg_add_json_from_string(&b, parameter);
-
-   if(ubus_invoke(ctx, id, method, b.head, dump_cb, 0, 0)) {
-      APP_LOG_FATAL("Failed to call ubus method %s", method);
+      blobmsg_add_json_from_string(&b, parameter);
+      APP_LOG_FATAL("\nGEN: %d", i);
+      if(ubus_invoke(ctx, id, method, b.head, dump_cb, 0, 0)) {
+         APP_LOG_FATAL("Failed to call ubus method %s", method);
+      }
+      blob_buf_free(&b);
    }
 
-/*
-   result = blobmsg_format_json(b.head, true);
-   if (result) {
-      APP_LOG_FATAL("System board info: %s", result);
-      free(result);
-   }
-*/
-   blob_buf_free(&b);
    ubus_free(ctx);
    
    return 0;
