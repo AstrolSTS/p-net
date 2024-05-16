@@ -76,20 +76,20 @@ CC_PACKED_END
 CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_INPUT_DATA_ECHO_SIZE);
 CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_OUTPUT_DATA_ECHO_SIZE);
 
-static struct ubus_context *ctx;
-static struct blob_buf b;
+// static struct ubus_context *ctx;
+// static struct blob_buf b;
 
-typedef struct {
-   uint8_t status0;
-   uint8_t status1;
-   uint8_t error;
-   uint8_t actualPower;
-   uint8_t control0;
-   uint8_t control1;
-   uint8_t powerSet;
-} GEN_DATA_TYPE;
+// typedef struct {
+//    uint8_t status0;
+//    uint8_t status1;
+//    uint8_t error;
+//    uint8_t actualPower;
+//    uint8_t control0;
+//    uint8_t control1;
+//    uint8_t powerSet;
+// } GEN_DATA_TYPE;
 
-static GEN_DATA_TYPE genData[APP_NO_OF_GENERATORS] = {0};
+// static GEN_DATA_TYPE genData[APP_NO_OF_GENERATORS] = {0};
 
 /**
  * Set LED state.
