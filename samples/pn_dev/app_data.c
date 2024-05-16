@@ -244,7 +244,7 @@ uint8_t * app_data_get_input_data (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT)
    {
       
-      ubus_call();
+      //ubus_call();
 
       // KKS-DCM
       // Read generator data here
