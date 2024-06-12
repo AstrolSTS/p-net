@@ -166,7 +166,7 @@ static int ubus_call(void) {
 	uint32_t id;
    //char *result;
 
-   APP_LOG_FATAL("\nubus_call");
+   //APP_LOG_FATAL("\nubus_call");
 
    ctx = ubus_connect(ubus_socket);
    if (!ctx) {
@@ -188,7 +188,7 @@ static int ubus_call(void) {
       sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"read\", \"index\": 13, \"count\":5}}",i);
 
       blobmsg_add_json_from_string(&b, parameter);
-      APP_LOG_FATAL("\nGEN: %d", i);
+      //APP_LOG_FATAL("\nGEN: %d", i);
       if(ubus_invoke(ctx, id, method, b.head, dump_cb, 0, 0)) {
          APP_LOG_FATAL("Failed to call ubus method %s", method);
       }
