@@ -141,7 +141,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
                if (json_object_object_get_ex(result_obj, "spiaddr", &value_obj)) {
                   genData[genIndex].status0 = json_object_get_int(value_obj);
                }
-            }
+            }/*
             if (strcmp(json_object_get_string(regname_obj) , "status1")) {
                if (json_object_object_get_ex(result_obj, "spiaddr", &value_obj)) {
                   genData[genIndex].status1 = json_object_get_int(value_obj);
@@ -157,6 +157,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
                   genData[genIndex].actualPower = json_object_get_int(value_obj);
                }
             }
+            */
          }
       }
    }
