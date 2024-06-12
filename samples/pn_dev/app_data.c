@@ -232,7 +232,7 @@ static int ubus_call_write(void) {
          if(j==1) {
             sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 33, \"value\":%d, \"commit\":true}}",i,genData[i].control1 );
          }
-         if(j==1) {
+         if(j==2) {
             sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 34, \"value\":%d, \"commit\":true}}",i,genData[i].powerSet );
          }
          blobmsg_add_json_from_string(&b, parameter);
