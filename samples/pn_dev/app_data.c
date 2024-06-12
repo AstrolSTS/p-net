@@ -138,13 +138,13 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
          json_object *regname_obj;
          if (json_object_object_get_ex(result_obj, "regname", &regname_obj)) {
             APP_LOG_FATAL(json_object_get_string(regname_obj)); 
-            
-            /*
+
             if (strcmp(json_object_get_string(regname_obj) , "status0")) {
                if (json_object_object_get_ex(result_obj, "spiaddr", &value_obj)) {
                   genData[genIndex].status0 = json_object_get_int(value_obj);
                }
             }
+            /*
             if (strcmp(json_object_get_string(regname_obj) , "status1")) {
                if (json_object_object_get_ex(result_obj, "spiaddr", &value_obj)) {
                   genData[genIndex].status1 = json_object_get_int(value_obj);
@@ -161,14 +161,15 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
                }
             }
             */
+
          }
       }
    }
     
-   //APP_LOG_FATAL("\nStatus0: %d", genData[genIndex].status0);
-   //APP_LOG_FATAL(" | Status1: %d", genData[genIndex].status1);
-   //APP_LOG_FATAL(" | Error: %d", genData[genIndex].error);
-   //APP_LOG_FATAL(" | Power: %d", genData[genIndex].actualPower);
+   APP_LOG_FATAL("\nStatus0: %d", genData[genIndex].status0);
+   APP_LOG_FATAL(" | Status1: %d", genData[genIndex].status1);
+   APP_LOG_FATAL(" | Error: %d", genData[genIndex].error);
+   APP_LOG_FATAL(" | Power: %d", genData[genIndex].actualPower);
    
    
    json_object_put(root);
