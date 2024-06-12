@@ -133,7 +133,6 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    
    if (json_object_object_get_ex(root, "result", &result_array)) {
       int array_len = json_object_array_length(result_array);
-      APP_LOG_FATAL("\nArray size: %d\n",array_len);
       for (int i = 0; i < array_len; i++) {
          result_obj = json_object_array_get_idx(result_array, i);
          if(i==0) {     // status0
@@ -158,13 +157,6 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
          }
       }
    }
-    
-   APP_LOG_FATAL("\nStatus0: %d", genData[genIndex].status0);
-   APP_LOG_FATAL(" | Status1: %d", genData[genIndex].status1);
-   APP_LOG_FATAL(" | Error: %d", genData[genIndex].error);
-   APP_LOG_FATAL(" | Power: %d", genData[genIndex].actualPower);
-   
-   
    json_object_put(root);
 
 }
@@ -241,17 +233,16 @@ uint8_t * app_data_get_input_data (
    if (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT)
    {
-      
       ubus_call();
 
       // KKS-DCM
       // Read generator data here
       // Parse and fill in into inputdata buffer
       for(i = 0;i<APP_NO_OF_GENERATORS;i++) {
-         inputdata[(i*4)+0] = counter++;  // Generator x Status0
-         inputdata[(i*4)+1] = counter++;  // Generator x Status1
-         inputdata[(i*4)+2] = counter++;  // Generator x Error
-         inputdata[(i*4)+3] = counter++;  // Generator x Actual Power
+         inputdata[(i*4)+0] = genData[i].status0;        // Generator x Status0
+         inputdata[(i*4)+1] = genData[i].status1;        // Generator x Status1
+         inputdata[(i*4)+2] = genData[i].error;          // Generator x Error
+         inputdata[(i*4)+3] = genData[i].actualPower;    // Generator x Actual Power
       }
       *size = APP_GSDML_INPUT_DATA_DIGITAL_SIZE;
       *iops = PNET_IOXS_GOOD;
