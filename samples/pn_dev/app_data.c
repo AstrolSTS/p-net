@@ -54,7 +54,7 @@ static uint32_t app_param_echo_gain = 1; /* Network endianness */
  * The stored value is shared between all digital submodules in this example. */
 static uint8_t inputdata[APP_GSDML_INPUT_DATA_DIGITAL_SIZE] = {0};
 static uint8_t outputdata[APP_GSDML_OUTPUT_DATA_DIGITAL_SIZE] = {0};
-static uint8_t counter = 0;
+//static uint8_t counter = 0;
 
 /* Network endianness */
 static uint8_t echo_inputdata[APP_GSDML_INPUT_DATA_ECHO_SIZE] = {0};
