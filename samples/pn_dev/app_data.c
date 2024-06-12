@@ -161,7 +161,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 
 }
 
-static int ubus_call(void) {
+static int ubus_call_read(void) {
    const char *ubus_socket = NULL;
 	uint32_t id;
    //char *result;
@@ -200,6 +200,56 @@ static int ubus_call(void) {
    return 0;
 }
 
+static int ubus_call_write(void) {
+   const char *ubus_socket = NULL;
+	uint32_t id;
+   //char *result;
+
+   //APP_LOG_FATAL("\nubus_call");
+
+   ctx = ubus_connect(ubus_socket);
+   if (!ctx) {
+      APP_LOG_FATAL("Failed to connect to ubus");
+      return -1;
+   }
+
+   if (ubus_lookup_id(ctx, "kksdcmd", &id)) {
+      APP_LOG_FATAL("Failed to lookup Ubus object");
+      return -1;
+   }
+
+   
+   const char *method = "api";
+   char parameter[128];
+   int genIndex = 0;
+
+   int16_t i,j;
+   for(i=0;i<APP_NO_OF_GENERATORS;i++) {
+      for(j=0;j<3;j++) {
+         blob_buf_init(&b,0);
+         if(j==0) {
+            sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 32, \"value\":%d, \"commit\":true}}",i,genData[i].control0 );
+         }
+         if(j==1) {
+            sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 33, \"value\":%d, \"commit\":true}}",i,genData[i].control2 );
+         }
+         if(j==1) {
+            sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 34, \"value\":%d, \"commit\":true}}",i,genData[i].powerSet );
+         }
+         blobmsg_add_json_from_string(&b, parameter);
+         if(ubus_invoke(ctx, id, method, b.head, 0, 0, 0)) {
+            APP_LOG_FATAL("Failed to call ubus method %s", method);
+         }
+         blob_buf_free(&b);
+      }
+   }
+
+   ubus_free(ctx);
+   
+   return 0;
+}
+
+
 uint8_t * app_data_get_input_data (
    uint16_t slot_nbr,
    uint16_t subslot_nbr,
@@ -233,7 +283,7 @@ uint8_t * app_data_get_input_data (
    if (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT)
    {
-      ubus_call();
+      ubus_call_read();
 
       // KKS-DCM
       // Read generator data here
@@ -302,17 +352,18 @@ int app_data_set_output_data (
       {
          memcpy (outputdata, data, size);
 
+         
+
          // KKS-DCM
          // Write data to generator here
          // read from outputdata buffer and fill into generator data
          for(i = 0;i<APP_NO_OF_GENERATORS;i++) {
-            //outputdata[(i*3)+0]; // Generator x Control0
-            //outputdata[(i*3)+1]; // Generator x Control1
-            //outputdata[(i*3)+2]; // Generator x Power Set
-            APP_LOG_FATAL("\nControl0: %d", outputdata[(i*3)+0]);
-            APP_LOG_FATAL(" | Control1: %d", outputdata[(i*3)+1]);
-            APP_LOG_FATAL(" | Power Set: %d", outputdata[(i*3)+2]);
+            genData[i].control0 = outputdata[(i*3)+0]; // Generator x Control0
+            genData[i].control1 = outputdata[(i*3)+1]; // Generator x Control1
+            genData[i].powerSet = outputdata[(i*3)+2]; // Generator x Power Set
          }  
+
+         ubus_call_write();
 
          /* Most significant bit: LED */
          led_state = 0;//(outputdata[0] & 0x80) > 0;
