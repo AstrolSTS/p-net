@@ -137,22 +137,22 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
       for (int i = 0; i < array_len; i++) {
          result_obj = json_object_array_get_idx(result_array, i);
          if(i==0) {     // status0
-            if(json_object_object_get_ex(result_obj, "spiaddr", &value_obj)) {
+            if(json_object_object_get_ex(result_obj, "engval", &value_obj)) {
                genData[genIndex].status0 = json_object_get_int(value_obj);
             }
          }
          if(i==1) {     // status1
-            if(json_object_object_get_ex(result_obj, "spiaddr", &value_obj)) {
+            if(json_object_object_get_ex(result_obj, "engval", &value_obj)) {
                genData[genIndex].status1 = json_object_get_int(value_obj);
             }
          }
          if(i==2) {     // error
-            if(json_object_object_get_ex(result_obj, "spiaddr", &value_obj)) {
+            if(json_object_object_get_ex(result_obj, "engval", &value_obj)) {
                genData[genIndex].error = json_object_get_int(value_obj);
             }
          }
          if(i==4) {     // actualPower
-            if(json_object_object_get_ex(result_obj, "spiaddr", &value_obj)) {
+            if(json_object_object_get_ex(result_obj, "engval", &value_obj)) {
                genData[genIndex].actualPower = json_object_get_int(value_obj);
             }
          }
