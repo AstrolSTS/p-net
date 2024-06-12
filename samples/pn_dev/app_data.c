@@ -76,20 +76,20 @@ CC_PACKED_END
 CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_INPUT_DATA_ECHO_SIZE);
 CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_OUTPUT_DATA_ECHO_SIZE);
 
-// static struct ubus_context *ctx;
-// static struct blob_buf b;
+static struct ubus_context *ctx;
+static struct blob_buf b;
 
-// typedef struct {
-//    uint8_t status0;
-//    uint8_t status1;
-//    uint8_t error;
-//    uint8_t actualPower;
-//    uint8_t control0;
-//    uint8_t control1;
-//    uint8_t powerSet;
-// } GEN_DATA_TYPE;
+typedef struct {
+   uint8_t status0;
+   uint8_t status1;
+   uint8_t error;
+   uint8_t actualPower;
+   uint8_t control0;
+   uint8_t control1;
+   uint8_t powerSet;
+} GEN_DATA_TYPE;
 
-// static GEN_DATA_TYPE genData[APP_NO_OF_GENERATORS] = {0};
+static GEN_DATA_TYPE genData[APP_NO_OF_GENERATORS] = {0};
 
 /**
  * Set LED state.
@@ -115,100 +115,100 @@ void init_kks_dcm(void) {
   
 }
 
-// static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
-// {
-//    char *blobmsg_string;
-// 	blobmsg_string = blobmsg_format_json_indent(msg, true, 0);
+static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
+{
+   char *blobmsg_string;
+	blobmsg_string = blobmsg_format_json_indent(msg, true, 0);
 
-//   // APP_LOG_FATAL("Received data:\n%s\n", blobmsg_string);
-// //	free(blobmsg_string);
+  // APP_LOG_FATAL("Received data:\n%s\n", blobmsg_string);
+//	free(blobmsg_string);
 
-//    json_object *root = json_tokener_parse(blobmsg_string);
-//    if (root == NULL) {
-//       APP_LOG_FATAL("Error parsing JSON");
-//    }
+   json_object *root = json_tokener_parse(blobmsg_string);
+   if (root == NULL) {
+      APP_LOG_FATAL("Error parsing JSON");
+   }
    
-//    json_object *result_array, *result_obj, *value_obj;
-//    int genIndex = 0;
+   json_object *result_array, *result_obj, *value_obj;
+   int genIndex = 0;
    
-//    if (json_object_object_get_ex(root, "result", &result_array)) {
-//       int array_len = json_object_array_length(result_array);
-//       for (int i = 0; i < array_len; i++) {
-//          result_obj = json_object_array_get_idx(result_array, i);
-//          json_object *regname_obj;
-//          if (json_object_object_get_ex(result_obj, "regname", &regname_obj)) {
-//             if (strcmp(json_object_get_string(regname_obj) , "status0")) {
-//                if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
-//                   genData[genIndex].status0 = json_object_get_int(value_obj);
-//                }
-//             }
-//             if (strcmp(json_object_get_string(regname_obj) , "status1")) {
-//                if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
-//                   genData[genIndex].status1 = json_object_get_int(value_obj);
-//                }
-//             }
-//             if (strcmp(json_object_get_string(regname_obj) , "error")) {
-//                if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
-//                   genData[genIndex].error = json_object_get_int(value_obj);
-//                }
-//             }
-//             if (strcmp(json_object_get_string(regname_obj) , "actualPower")) {
-//                if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
-//                   genData[genIndex].actualPower = json_object_get_int(value_obj);
-//                }
-//             }
-//          }
-//       }
-//    }
+   if (json_object_object_get_ex(root, "result", &result_array)) {
+      int array_len = json_object_array_length(result_array);
+      for (int i = 0; i < array_len; i++) {
+         result_obj = json_object_array_get_idx(result_array, i);
+         json_object *regname_obj;
+         if (json_object_object_get_ex(result_obj, "regname", &regname_obj)) {
+            if (strcmp(json_object_get_string(regname_obj) , "status0")) {
+               if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
+                  genData[genIndex].status0 = json_object_get_int(value_obj);
+               }
+            }
+            if (strcmp(json_object_get_string(regname_obj) , "status1")) {
+               if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
+                  genData[genIndex].status1 = json_object_get_int(value_obj);
+               }
+            }
+            if (strcmp(json_object_get_string(regname_obj) , "error")) {
+               if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
+                  genData[genIndex].error = json_object_get_int(value_obj);
+               }
+            }
+            if (strcmp(json_object_get_string(regname_obj) , "actualPower")) {
+               if (json_object_object_get_ex(result_obj, "engval", &value_obj)) {
+                  genData[genIndex].actualPower = json_object_get_int(value_obj);
+               }
+            }
+         }
+      }
+   }
     
-//    APP_LOG_FATAL("\nStatus0: %d", genData[genIndex].status0);
-//    APP_LOG_FATAL(" | Status1: %d", genData[genIndex].status1);
-//    APP_LOG_FATAL(" | Error: %d", genData[genIndex].error);
-//    APP_LOG_FATAL(" | Power: %d", genData[genIndex].actualPower);
+   APP_LOG_FATAL("\nStatus0: %d", genData[genIndex].status0);
+   APP_LOG_FATAL(" | Status1: %d", genData[genIndex].status1);
+   APP_LOG_FATAL(" | Error: %d", genData[genIndex].error);
+   APP_LOG_FATAL(" | Power: %d", genData[genIndex].actualPower);
    
    
-//    json_object_put(root);
+   json_object_put(root);
 
-// }
+}
 
-// static int ubus_call(void) {
-//    const char *ubus_socket = NULL;
-// 	uint32_t id;
-//    //char *result;
+static int ubus_call(void) {
+   const char *ubus_socket = NULL;
+	uint32_t id;
+   //char *result;
 
-//    APP_LOG_FATAL("\nubus_call");
+   APP_LOG_FATAL("\nubus_call");
 
-//    ctx = ubus_connect(ubus_socket);
-//    if (!ctx) {
-//       APP_LOG_FATAL("Failed to connect to ubus");
-//       return -1;
-//    }
+   ctx = ubus_connect(ubus_socket);
+   if (!ctx) {
+      APP_LOG_FATAL("Failed to connect to ubus");
+      return -1;
+   }
 
-//    if (ubus_lookup_id(ctx, "kksdcmd", &id)) {
-//       APP_LOG_FATAL("Failed to lookup Ubus object");
-//       return -1;
-//    }
+   if (ubus_lookup_id(ctx, "kksdcmd", &id)) {
+      APP_LOG_FATAL("Failed to lookup Ubus object");
+      return -1;
+   }
 
    
-//    const char *method = "api";
-//    char parameter[128];
-//    int16_t i;
-//    for(i=0;i<2;i++) {
-//       blob_buf_init(&b,0);
-//       sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"read\", \"index\": 13, \"count\":5}}",i);
+   const char *method = "api";
+   char parameter[128];
+   int16_t i;
+   for(i=0;i<APP_NO_OF_GENERATORS;i++) {
+      blob_buf_init(&b,0);
+      sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"read\", \"index\": 13, \"count\":5}}",i);
 
-//       blobmsg_add_json_from_string(&b, parameter);
-//       APP_LOG_FATAL("\nGEN: %d", i);
-//       if(ubus_invoke(ctx, id, method, b.head, dump_cb, 0, 0)) {
-//          APP_LOG_FATAL("Failed to call ubus method %s", method);
-//       }
-//       blob_buf_free(&b);
-//    }
+      blobmsg_add_json_from_string(&b, parameter);
+      APP_LOG_FATAL("\nGEN: %d", i);
+      if(ubus_invoke(ctx, id, method, b.head, dump_cb, 0, 0)) {
+         APP_LOG_FATAL("Failed to call ubus method %s", method);
+      }
+      blob_buf_free(&b);
+   }
 
-//    ubus_free(ctx);
+   ubus_free(ctx);
    
-//    return 0;
-// }
+   return 0;
+}
 
 uint8_t * app_data_get_input_data (
    uint16_t slot_nbr,
@@ -244,7 +244,7 @@ uint8_t * app_data_get_input_data (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT)
    {
       
-      //ubus_call();
+      ubus_call();
 
       // KKS-DCM
       // Read generator data here
