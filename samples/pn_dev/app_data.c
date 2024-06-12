@@ -221,7 +221,6 @@ static int ubus_call_write(void) {
    
    const char *method = "api";
    char parameter[128];
-   int genIndex = 0;
 
    int16_t i,j;
    for(i=0;i<APP_NO_OF_GENERATORS;i++) {
