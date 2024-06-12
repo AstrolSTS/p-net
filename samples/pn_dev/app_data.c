@@ -309,6 +309,9 @@ int app_data_set_output_data (
             //outputdata[(i*3)+0]; // Generator x Control0
             //outputdata[(i*3)+1]; // Generator x Control1
             //outputdata[(i*3)+2]; // Generator x Power Set
+            APP_LOG_FATAL("\nControl0: %d", outputdata[(i*3)+0]);
+            APP_LOG_FATAL(" | Control1: %d", outputdata[(i*3)+1]);
+            APP_LOG_FATAL(" | Power Set: %d", outputdata[(i*3)+2]);
          }  
 
          /* Most significant bit: LED */
