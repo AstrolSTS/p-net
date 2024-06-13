@@ -78,6 +78,7 @@ CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_OUTPUT_DATA_ECHO_SIZE);
 
 static struct ubus_context *ctx;
 static struct blob_buf b;
+static bool initDone = false;
 
 typedef struct {
    uint8_t status0;
@@ -144,8 +145,6 @@ int init_kks_dcm(void) {
 
 static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 {
-
-   
    char *blobmsg_string;
 	blobmsg_string = blobmsg_format_json_indent(msg, true, 0);
 
@@ -189,6 +188,12 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 }
 
 static int ubus_call_read(void) {
+
+   if(initDone == false) {       // initialize system on the first call
+      init_kks_dcm();
+      initDone = true;
+   }
+
    const char *ubus_socket = NULL;
 	uint32_t id;
    //char *result;
@@ -228,6 +233,12 @@ static int ubus_call_read(void) {
 }
 
 static int ubus_call_write(void) {
+
+   if(initDone == false) {       // initialize system on the first call
+      init_kks_dcm();
+      initDone = true;
+   }
+
    const char *ubus_socket = NULL;
 	uint32_t id;
    //char *result;

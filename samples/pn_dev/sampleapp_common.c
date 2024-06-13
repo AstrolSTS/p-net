@@ -133,7 +133,7 @@ app_data_t * app_init (const pnet_cfg_t * pnet_cfg, const app_args_t * app_args)
    uint16_t i;
 
    APP_LOG_INFO ("Init P-Net stack and sample application - Astrol\n");
-   init_kks_dcm();
+   //init_kks_dcm();
 
    app = &app_state;
 
