@@ -130,39 +130,32 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
       APP_LOG_FATAL("Error parsing JSON");
    }
    
-   json_object *result_array, *result_obj, *value_obj;
+   json_object *result_array;
    int genIndex = 0;
    
    if (json_object_object_get_ex(root, "result", &result_array)) {
       int array_len = json_object_array_length(result_array);
       for (int i = 0; i < array_len; i++) {
-         result_obj = json_object_array_get_idx(result_array, i);
+         json_object *result_obj = json_object_array_get_idx(result_array, i);
+         json_object *value_obj = json_object_object_get_ex(result_obj, "engval", &value_obj);
          if(i==0) {     // status0
-            if(json_object_object_get_ex(result_obj, "engval", &value_obj)) {
-               genData[genIndex].status0 = json_object_get_int(value_obj);
-            }
+            genData[genIndex].status0 = json_object_get_int(value_obj);
          }
          if(i==1) {     // status1
-            if(json_object_object_get_ex(result_obj, "engval", &value_obj)) {
-               genData[genIndex].status1 = json_object_get_int(value_obj);
-            }
+            genData[genIndex].status1 = json_object_get_int(value_obj);
          }
          if(i==2) {     // error
-            if(json_object_object_get_ex(result_obj, "engval", &value_obj)) {
-               genData[genIndex].error = json_object_get_int(value_obj);
-            }
+            genData[genIndex].error = json_object_get_int(value_obj);
          }
          if(i==4) {     // actualPower
-            if(json_object_object_get_ex(result_obj, "engval", &value_obj)) {
-               genData[genIndex].actualPower = json_object_get_int(value_obj);
-            }
+            genData[genIndex].actualPower = json_object_get_int(value_obj);
          }
+         json_object_put(value_obj);
+         json_object_put(result_obj);
       }
    }
+   json_object_put(result_array);   
    json_object_put(root);
-   json_object_put(result_array);
-   json_object_put(result_obj);
-   json_object_put(value_obj);
    free(blobmsg_string);
 }
 
