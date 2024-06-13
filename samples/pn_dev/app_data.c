@@ -118,7 +118,7 @@ void init_kks_dcm(void) {
 static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 {
 
-   /*
+   
    char *blobmsg_string;
 	blobmsg_string = blobmsg_format_json_indent(msg, true, 0);
 
@@ -163,14 +163,7 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    json_object_put(result_array);
    json_object_put(result_obj);
    json_object_put(value_obj);
-   */
-
-  int genIndex = 0;
-  genData[genIndex].status0 = 1;
-  genData[genIndex].status1 = 2;
-  genData[genIndex].error = 3;
-  genData[genIndex].actualPower = 4;
-
+   free(blobmsg_string);
 }
 
 static int ubus_call_read(void) {
