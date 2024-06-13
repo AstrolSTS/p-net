@@ -190,8 +190,9 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
 static int ubus_call_read(void) {
 
    if(initDone == false) {       // initialize system on the first call
-      init_kks_dcm();
-      initDone = true;
+      if(0 == init_kks_dcm()) {
+         initDone = true;
+      }
    }
 
    const char *ubus_socket = NULL;
@@ -235,8 +236,9 @@ static int ubus_call_read(void) {
 static int ubus_call_write(void) {
 
    if(initDone == false) {       // initialize system on the first call
-      init_kks_dcm();
-      initDone = true;
+      if(0 == init_kks_dcm()) {
+         initDone = true;
+      }
    }
 
    const char *ubus_socket = NULL;
