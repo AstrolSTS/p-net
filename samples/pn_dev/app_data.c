@@ -139,6 +139,7 @@ int init_kks_dcm(void) {
       blob_buf_free(&b);
    }
    ubus_free(ctx);
+   return 0;
 }
 
 static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
