@@ -137,20 +137,22 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
       int array_len = json_object_array_length(result_array);
       for (int i = 0; i < array_len; i++) {
          json_object *result_obj = json_object_array_get_idx(result_array, i);
-         json_object *value_obj = json_object_object_get_ex(result_obj, "engval", &value_obj);
-         if(i==0) {     // status0
-            genData[genIndex].status0 = json_object_get_int(value_obj);
+         json_object *value_obj;
+         if(json_object_object_get_ex(result_obj, "engval", &value_obj)) {
+            if(i==0) {     // status0
+               genData[genIndex].status0 = json_object_get_int(value_obj);
+            }
+            if(i==1) {     // status1
+               genData[genIndex].status1 = json_object_get_int(value_obj);
+            }
+            if(i==2) {     // error
+               genData[genIndex].error = json_object_get_int(value_obj);
+            }
+            if(i==4) {     // actualPower
+               genData[genIndex].actualPower = json_object_get_int(value_obj);
+            }
+            json_object_put(value_obj);
          }
-         if(i==1) {     // status1
-            genData[genIndex].status1 = json_object_get_int(value_obj);
-         }
-         if(i==2) {     // error
-            genData[genIndex].error = json_object_get_int(value_obj);
-         }
-         if(i==4) {     // actualPower
-            genData[genIndex].actualPower = json_object_get_int(value_obj);
-         }
-         json_object_put(value_obj);
          json_object_put(result_obj);
       }
    }
