@@ -218,8 +218,7 @@ static int ubus_call_read(void) {
    int16_t i;
    for(i=0;i<APP_NO_OF_GENERATORS;i++) {
       blob_buf_init(&b,0);
-      sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"read\", \"index\": 13, \"count\":5}}",i);
-
+      sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"read\", \"index\": 13, \"count\":5, \"refresh\":true}}",i);
       blobmsg_add_json_from_string(&b, parameter);
       //APP_LOG_FATAL("\nGEN: %d", i);
       if(ubus_invoke(ctx, id, method, b.head, dump_cb, 0, 0)) {
