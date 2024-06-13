@@ -36,7 +36,7 @@ extern "C" {
 #include <stdint.h>
 #include <stdbool.h>
 
-void init_kks_dcm(void);
+int init_kks_dcm(void);
 
 /**
  * Get application specific PNIO input data (for sending to PLC)

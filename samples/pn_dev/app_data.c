@@ -111,7 +111,7 @@ static void app_handle_data_led_state (bool led_state)
    previous_led_state = led_state;
 }
 
-void init_kks_dcm(void) {
+int init_kks_dcm(void) {
   const char *ubus_socket = NULL;
 	uint32_t id;
 
