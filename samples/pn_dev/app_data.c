@@ -158,7 +158,9 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
       }
    }
    json_object_put(root);
-
+   json_object_put(result_array);
+   json_object_put(result_obj);
+   json_object_put(value_obj);
 }
 
 static int ubus_call_read(void) {
