@@ -112,7 +112,33 @@ static void app_handle_data_led_state (bool led_state)
 }
 
 void init_kks_dcm(void) {
-  
+  const char *ubus_socket = NULL;
+	uint32_t id;
+
+   ctx = ubus_connect(ubus_socket);
+   if (!ctx) {
+      APP_LOG_FATAL("Failed to connect to ubus");
+      return -1;
+   }
+
+   if (ubus_lookup_id(ctx, "kksdcmd", &id)) {
+      APP_LOG_FATAL("Failed to lookup Ubus object");
+      return -1;
+   }
+
+   const char *method = "api";
+   char parameter[128];
+   int16_t i;
+   for(i=0;i<APP_NO_OF_GENERATORS;i++) {
+      blob_buf_init(&b,0);
+      sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"list\", \"refresh\": true}}",i);
+      blobmsg_add_json_from_string(&b, parameter);
+      if(ubus_invoke(ctx, id, method, b.head, 0, 0, 0)) {
+         APP_LOG_FATAL("Failed to call ubus method %s", method);
+      }
+      blob_buf_free(&b);
+   }
+   ubus_free(ctx);
 }
 
 static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
