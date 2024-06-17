@@ -79,6 +79,7 @@ CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_OUTPUT_DATA_ECHO_SIZE);
 static struct ubus_context *ctx;
 static struct blob_buf b;
 static bool initDone = false;
+static uint32_t pnComSupervisor = 0;
 
 typedef struct {
    uint8_t status0;
@@ -306,6 +307,36 @@ static int ubus_call_write(void) {
    return 0;
 }
 
+static int ubus_call_write_pn_com_supervisor(void) {
+   const char *ubus_socket = NULL;
+	uint32_t id;
+
+   ctx = ubus_connect(ubus_socket);
+   if (!ctx) {
+      APP_LOG_FATAL("Failed to connect to ubus");
+      return -1;
+   }
+
+   if (ubus_lookup_id(ctx, "file", &id)) {
+      APP_LOG_FATAL("Failed to lookup Ubus object");
+      return -1;
+   }
+
+   const char *method = "write";
+   char parameter[128];
+   int16_t i,j,subCalls;
+
+   blob_buf_init(&b,0);
+   sprintf(parameter,"{\"path\":\"/root/pnComSupervisor\", \"data\":\"%d\"}",pnComSupervisor);
+   blobmsg_add_json_from_string(&b, parameter);
+   if(ubus_invoke(ctx, id, method, b.head, 0, 0, 0)) {
+      APP_LOG_FATAL("Failed to call ubus method %s", method);
+   }
+   blob_buf_free(&b);
+   ubus_free(ctx);
+   return 0;
+}
+
 uint8_t * app_data_get_input_data (
    uint16_t slot_nbr,
    uint16_t subslot_nbr,
@@ -344,12 +375,19 @@ uint8_t * app_data_get_input_data (
       // KKS-DCM
       // Read generator data here
       // Parse and fill in into inputdata buffer
+      pnComSupervisor &= ~(0xFFFF);                      // mask out active bits
       for(i = 0;i<APP_NO_OF_GENERATORS;i++) {
          inputdata[(i*4)+0] = genData[i].status0;        // Generator x Status0
          inputdata[(i*4)+1] = genData[i].status1;        // Generator x Status1
          inputdata[(i*4)+2] = genData[i].error;          // Generator x Error
          inputdata[(i*4)+3] = genData[i].actualPower;    // Generator x Actual Power
+
+         if(genData[genIndex].error != 255) {
+            pnComSupervisor |= (1 << i);
+         }
       }
+      pnComSupervisor += 0x10000;                        // higher word is used for supervisor counter
+      ubus_call_write_pn_com_supervisor();
       *size = APP_GSDML_INPUT_DATA_DIGITAL_SIZE;
       *iops = PNET_IOXS_GOOD;
       return inputdata;
