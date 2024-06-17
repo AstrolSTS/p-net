@@ -143,7 +143,9 @@ int init_kks_dcm(void) {
    return 0;
 }
 
-static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
+
+
+static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg, int genIndex)
 {
    char *blobmsg_string;
 	blobmsg_string = blobmsg_format_json_indent(msg, true, 0);
@@ -157,7 +159,6 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    }
    
    json_object *result_array;
-   int genIndex = 0;
    
    if (json_object_object_get_ex(root, "result", &result_array)) {
       int array_len = json_object_array_length(result_array);
@@ -191,6 +192,10 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    json_object_put(root);
    free(blobmsg_string);
 }
+
+static read_gen_0(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,0); }
+static read_gen_1(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,1); }
+
 
 static int ubus_call_read(void) {
 
@@ -226,9 +231,9 @@ static int ubus_call_read(void) {
       sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"read\", \"index\": 13, \"count\":5, \"refresh\":true}}",i);
       blobmsg_add_json_from_string(&b, parameter);
       //APP_LOG_FATAL("\nGEN: %d", i);
-      if(ubus_invoke(ctx, id, method, b.head, dump_cb, 0, 0)) {
-         APP_LOG_FATAL("Failed to call ubus method %s", method);
-      }
+      if(i == 0) { if(ubus_invoke(ctx, id, method, b.head, read_gen_0, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 1) { if(ubus_invoke(ctx, id, method, b.head, read_gen_1, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      
       blob_buf_free(&b);
    }
 
