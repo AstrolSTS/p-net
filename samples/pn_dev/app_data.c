@@ -88,6 +88,7 @@ typedef struct {
    uint8_t control0;
    uint8_t control1;
    uint8_t powerSet;
+   uint8_t enabled;
 } GEN_DATA_TYPE;
 
 static GEN_DATA_TYPE genData[APP_NO_OF_GENERATORS] = {0};
@@ -160,6 +161,7 @@ static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg
    genData[genIndex].status1 = 0;
    genData[genIndex].error = 255;            // no communication
    genData[genIndex].actualPower = 0;
+   genData[genIndex].enabled = 0;
 
    if (json_object_object_get_ex(root, "result", &result_array)) {
       int array_len = json_object_array_length(result_array);
@@ -170,6 +172,7 @@ static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg
          if(json_object_object_get_ex(result_obj, "engval", &value_obj)) {
             if(i==0) {     // status0
                genData[genIndex].status0 = json_object_get_int(value_obj);
+               genData[genIndex].enabled = 1;
             }
             if(i==1) {     // status1
                genData[genIndex].status1 = json_object_get_int(value_obj);
@@ -239,7 +242,7 @@ static int ubus_call_read(void) {
    return 0;
 }
 
-/*
+
 static int ubus_call_write(void) {
 
    if(initDone == false) {       // initialize system on the first call
@@ -250,9 +253,7 @@ static int ubus_call_write(void) {
 
    const char *ubus_socket = NULL;
 	uint32_t id;
-   //char *result;
 
-   //APP_LOG_FATAL("\nubus_call");
 
    ctx = ubus_connect(ubus_socket);
    if (!ctx) {
@@ -278,23 +279,25 @@ static int ubus_call_write(void) {
       }
 
       for(j=0;j<subCalls;j++) {
-         blob_buf_init(&b,0);
-         if(i==0) {    // master generator needs to commit every call
-            if(j==0) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 32, \"value\":%d, \"commit\":true}}",i,genData[i].control0 );}
-            if(j==1) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 33, \"value\":%d, \"commit\":true}}",i,genData[i].control1 );}
-            if(j==2) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 34, \"value\":%d, \"commit\":true}}",i,genData[i].powerSet );}
+         if(genData[i].enabled) {
+            blob_buf_init(&b,0);
+            if(i==0) {    // master generator needs to commit every call
+               if(j==0) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 32, \"value\":%d, \"commit\":true}}",i,genData[i].control0 );}
+               if(j==1) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 33, \"value\":%d, \"commit\":true}}",i,genData[i].control1 );}
+               if(j==2) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 34, \"value\":%d, \"commit\":true}}",i,genData[i].powerSet );}
+            }
+            else {      // master generator needs to commit after last call
+               if(j==0) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 32, \"value\":%d, \"commit\":false}}",i,genData[i].control0 );}
+               if(j==1) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 33, \"value\":%d, \"commit\":false}}",i,genData[i].control1 );}
+               if(j==2) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 34, \"value\":%d, \"commit\":false}}",i,genData[i].powerSet );}
+               if(j==3) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 32, \"count\":3, \"commit\":true}}",i);} 
+            }
+            blobmsg_add_json_from_string(&b, parameter);
+            if(ubus_invoke(ctx, id, method, b.head, 0, 0, 0)) {
+               APP_LOG_FATAL("Failed to call ubus method %s", method);
+            }
+            blob_buf_free(&b);
          }
-         else {      // master generator needs to commit after last call
-            if(j==0) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 32, \"value\":%d, \"commit\":false}}",i,genData[i].control0 );}
-            if(j==1) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 33, \"value\":%d, \"commit\":false}}",i,genData[i].control1 );}
-            if(j==2) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 34, \"value\":%d, \"commit\":false}}",i,genData[i].powerSet );}
-            if(j==3) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 32, \"count\":3, \"commit\":true}}",i);} 
-         }
-         blobmsg_add_json_from_string(&b, parameter);
-         if(ubus_invoke(ctx, id, method, b.head, 0, 0, 0)) {
-            APP_LOG_FATAL("Failed to call ubus method %s", method);
-         }
-         blob_buf_free(&b);
       }
    }
 
@@ -302,7 +305,6 @@ static int ubus_call_write(void) {
    
    return 0;
 }
-*/
 
 uint8_t * app_data_get_input_data (
    uint16_t slot_nbr,
