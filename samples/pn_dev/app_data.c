@@ -161,6 +161,11 @@ static void dump_cb(struct ubus_request *req, int type, struct blob_attr *msg)
    
    if (json_object_object_get_ex(root, "result", &result_array)) {
       int array_len = json_object_array_length(result_array);
+      genData[genIndex].status0 = 0;
+      genData[genIndex].status1 = 0;
+      genData[genIndex].error = 255;            // no communication
+      genData[genIndex].actualPower = 0;
+
       for (int i = 0; i < array_len; i++) {
          json_object *result_obj = json_object_array_get_idx(result_array, i);
          json_object *value_obj;
@@ -260,19 +265,27 @@ static int ubus_call_write(void) {
    
    const char *method = "api";
    char parameter[128];
-
-   int16_t i,j;
+   int16_t i,j,subCalls;
    for(i=0;i<APP_NO_OF_GENERATORS;i++) {
-      for(j=0;j<3;j++) {
+      if(i==0) {
+         subCalls = 3;
+      }
+      else {
+         subCalls = 4;
+      }
+
+      for(j=0;j<subCalls;j++) {
          blob_buf_init(&b,0);
-         if(j==0) {
-            sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 32, \"value\":%d, \"commit\":true}}",i,genData[i].control0 );
+         if(i==0) {    // master generator needs to commit every call
+            if(j==0) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 32, \"value\":%d, \"commit\":true}}",i,genData[i].control0 );}
+            if(j==1) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 33, \"value\":%d, \"commit\":true}}",i,genData[i].control1 );}
+            if(j==2) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 34, \"value\":%d, \"commit\":true}}",i,genData[i].powerSet );}
          }
-         if(j==1) {
-            sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 33, \"value\":%d, \"commit\":true}}",i,genData[i].control1 );
-         }
-         if(j==2) {
-            sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 34, \"value\":%d, \"commit\":true}}",i,genData[i].powerSet );
+         else {      // master generator needs to commit after last call
+            if(j==0) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 32, \"value\":%d, \"commit\":false}}",i,genData[i].control0 );}
+            if(j==1) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 33, \"value\":%d, \"commit\":false}}",i,genData[i].control1 );}
+            if(j==2) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 34, \"value\":%d, \"commit\":false}}",i,genData[i].powerSet );}
+            if(j==3) { sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"write\", \"index\": 32, \"count\":3, \"commit\":true}}",i);} 
          }
          blobmsg_add_json_from_string(&b, parameter);
          if(ubus_invoke(ctx, id, method, b.head, 0, 0, 0)) {
