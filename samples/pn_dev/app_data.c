@@ -193,8 +193,8 @@ static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg
    free(blobmsg_string);
 }
 
-static read_gen_0(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,0); }
-static read_gen_1(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,1); }
+static void read_gen_0(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,0); }
+static void read_gen_1(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,1); }
 
 
 static int ubus_call_read(void) {
