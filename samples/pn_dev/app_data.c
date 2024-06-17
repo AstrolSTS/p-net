@@ -419,7 +419,7 @@ int app_data_set_output_data (
             genData[i].powerSet = outputdata[(i*3)+2]; // Generator x Power Set
          }  
 
-         //ubus_call_write();
+         ubus_call_write();
 
          /* Most significant bit: LED */
          led_state = 0;//(outputdata[0] & 0x80) > 0;
