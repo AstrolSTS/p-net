@@ -150,23 +150,20 @@ static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg
    char *blobmsg_string;
 	blobmsg_string = blobmsg_format_json_indent(msg, true, 0);
 
-  // APP_LOG_FATAL("Received data:\n%s\n", blobmsg_string);
-//	free(blobmsg_string);
-
    json_object *root = json_tokener_parse(blobmsg_string);
    if (root == NULL) {
       APP_LOG_FATAL("Error parsing JSON");
    }
    
    json_object *result_array;
-   
+   genData[genIndex].status0 = 0;
+   genData[genIndex].status1 = 0;
+   genData[genIndex].error = 255;            // no communication
+   genData[genIndex].actualPower = 0;
+
    if (json_object_object_get_ex(root, "result", &result_array)) {
       int array_len = json_object_array_length(result_array);
-      genData[genIndex].status0 = 0;
-      genData[genIndex].status1 = 0;
-      genData[genIndex].error = 255;            // no communication
-      genData[genIndex].actualPower = 0;
-
+      
       for (int i = 0; i < array_len; i++) {
          json_object *result_obj = json_object_array_get_idx(result_array, i);
          json_object *value_obj;
@@ -242,6 +239,7 @@ static int ubus_call_read(void) {
    return 0;
 }
 
+/*
 static int ubus_call_write(void) {
 
    if(initDone == false) {       // initialize system on the first call
@@ -304,7 +302,7 @@ static int ubus_call_write(void) {
    
    return 0;
 }
-
+*/
 
 uint8_t * app_data_get_input_data (
    uint16_t slot_nbr,
@@ -419,7 +417,7 @@ int app_data_set_output_data (
             genData[i].powerSet = outputdata[(i*3)+2]; // Generator x Power Set
          }  
 
-         ubus_call_write();
+         //ubus_call_write();
 
          /* Most significant bit: LED */
          led_state = 0;//(outputdata[0] & 0x80) > 0;
