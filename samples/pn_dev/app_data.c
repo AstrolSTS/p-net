@@ -382,7 +382,7 @@ uint8_t * app_data_get_input_data (
          inputdata[(i*4)+2] = genData[i].error;          // Generator x Error
          inputdata[(i*4)+3] = genData[i].actualPower;    // Generator x Actual Power
 
-         if(genData[genIndex].error != 255) {
+         if(genData[i].error != 255) {
             pnComSupervisor |= (1 << i);
          }
       }
