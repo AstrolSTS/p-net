@@ -324,7 +324,6 @@ static int ubus_call_write_pn_com_supervisor(void) {
 
    const char *method = "write";
    char parameter[128];
-   int16_t i,j,subCalls;
 
    blob_buf_init(&b,0);
    sprintf(parameter,"{\"path\":\"/root/pnComSupervisor\", \"data\":\"%d\"}",pnComSupervisor);
