@@ -196,6 +196,7 @@ static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg
 
 static void read_gen_0(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,0); }
 static void read_gen_1(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,1); }
+static void read_gen_2(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,2); }
 
 
 static int ubus_call_read(void) {
@@ -234,6 +235,7 @@ static int ubus_call_read(void) {
       //APP_LOG_FATAL("\nGEN: %d", i);
       if(i == 0) { if(ubus_invoke(ctx, id, method, b.head, read_gen_0, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
       if(i == 1) { if(ubus_invoke(ctx, id, method, b.head, read_gen_1, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 2) { if(ubus_invoke(ctx, id, method, b.head, read_gen_2, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
       
       blob_buf_free(&b);
    }
