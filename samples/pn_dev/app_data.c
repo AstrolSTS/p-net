@@ -197,6 +197,19 @@ static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg
 static void read_gen_0(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,0); }
 static void read_gen_1(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,1); }
 static void read_gen_2(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,2); }
+static void read_gen_3(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,3); }
+static void read_gen_4(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,4); }
+static void read_gen_5(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,5); }
+static void read_gen_6(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,6); }
+static void read_gen_7(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,7); }
+static void read_gen_8(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,8); }
+static void read_gen_9(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,9); }
+static void read_gen_10(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,10); }
+static void read_gen_11(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,11); }
+static void read_gen_12(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,12); }
+static void read_gen_13(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,13); }
+static void read_gen_14(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,14); }
+static void read_gen_15(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,15); }
 
 
 static int ubus_call_read(void) {
@@ -236,7 +249,20 @@ static int ubus_call_read(void) {
       if(i == 0) { if(ubus_invoke(ctx, id, method, b.head, read_gen_0, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
       if(i == 1) { if(ubus_invoke(ctx, id, method, b.head, read_gen_1, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
       if(i == 2) { if(ubus_invoke(ctx, id, method, b.head, read_gen_2, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      
+      if(i == 3) { if(ubus_invoke(ctx, id, method, b.head, read_gen_3, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 4) { if(ubus_invoke(ctx, id, method, b.head, read_gen_4, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 5) { if(ubus_invoke(ctx, id, method, b.head, read_gen_5, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 6) { if(ubus_invoke(ctx, id, method, b.head, read_gen_6, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 7) { if(ubus_invoke(ctx, id, method, b.head, read_gen_7, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 8) { if(ubus_invoke(ctx, id, method, b.head, read_gen_8, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 9) { if(ubus_invoke(ctx, id, method, b.head, read_gen_9, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 10) { if(ubus_invoke(ctx, id, method, b.head, read_gen_10, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 11) { if(ubus_invoke(ctx, id, method, b.head, read_gen_11, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 12) { if(ubus_invoke(ctx, id, method, b.head, read_gen_12, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 13) { if(ubus_invoke(ctx, id, method, b.head, read_gen_13, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 14) { if(ubus_invoke(ctx, id, method, b.head, read_gen_14, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+      if(i == 15) { if(ubus_invoke(ctx, id, method, b.head, read_gen_15, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+ 
       blob_buf_free(&b);
    }
 
