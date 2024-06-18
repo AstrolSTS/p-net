@@ -307,6 +307,7 @@ static int ubus_call_write(void) {
    return 0;
 }
 
+/*
 static int ubus_call_write_pn_com_supervisor(void) {
    const char *ubus_socket = NULL;
 	uint32_t id;
@@ -335,6 +336,7 @@ static int ubus_call_write_pn_com_supervisor(void) {
    ubus_free(ctx);
    return 0;
 }
+*/
 
 uint8_t * app_data_get_input_data (
    uint16_t slot_nbr,
@@ -374,19 +376,19 @@ uint8_t * app_data_get_input_data (
       // KKS-DCM
       // Read generator data here
       // Parse and fill in into inputdata buffer
-      pnComSupervisor &= ~(0xFFFF);                      // mask out active bits
+      //pnComSupervisor &= ~(0xFFFF);                      // mask out active bits
       for(i = 0;i<APP_NO_OF_GENERATORS;i++) {
          inputdata[(i*4)+0] = genData[i].status0;        // Generator x Status0
          inputdata[(i*4)+1] = genData[i].status1;        // Generator x Status1
          inputdata[(i*4)+2] = genData[i].error;          // Generator x Error
          inputdata[(i*4)+3] = genData[i].actualPower;    // Generator x Actual Power
 
-         if(genData[i].error != 255) {
-            pnComSupervisor |= (1 << i);
-         }
+         //if(genData[i].error != 255) {
+         //   pnComSupervisor |= (1 << i);
+         //}
       }
-      pnComSupervisor += 0x10000;                        // higher word is used for supervisor counter
-      ubus_call_write_pn_com_supervisor();
+      //pnComSupervisor += 0x10000;                        // higher word is used for supervisor counter
+      //ubus_call_write_pn_com_supervisor();
       *size = APP_GSDML_INPUT_DATA_DIGITAL_SIZE;
       *iops = PNET_IOXS_GOOD;
       return inputdata;
