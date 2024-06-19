@@ -137,6 +137,7 @@ int init_kks_dcm(void) {
    char parameter[128];
    int16_t i;
    for(i=0;i<APP_NO_OF_GENERATORS;i++) {
+      genData[i].enabled = 1;
       blob_buf_init(&b,0);
       sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"list\", \"refresh\": true}}",i);
       blobmsg_add_json_from_string(&b, parameter);
