@@ -146,6 +146,8 @@ int init_kks_dcm(void) {
 }
 
 static void sim_read_gen_x(uint16_t genIndex) {
+   initDone = true;
+   
    genData[genIndex].status0 = genIndex;
    genData[genIndex].status1 = 0;
    genData[genIndex].error = 255;            // no communication
