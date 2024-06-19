@@ -80,9 +80,6 @@ CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_OUTPUT_DATA_ECHO_SIZE);
 static struct ubus_context *ctx;
 static struct blob_buf b;
 static int16_t reSyncIndex = 0;
-clock_t t_start, t_end;
-double cpu_time_used;
-//static uint32_t pnComSupervisor = 0;
 
 typedef struct {
    uint8_t status0;
@@ -401,37 +398,21 @@ uint8_t * app_data_get_input_data (
    if (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT)
    {
-
-      
-      
-
       // KKS-DCM
       // Read generator data here
       // Parse and fill in into inputdata buffer
       i = slot_nbr-1;
-
-      if(i < 3) {
-         t_start = clock();
-         if(genData[i].enabled) {
-            ubus_call_read_x(i);
-         }
-         t_end = clock();
-         cpu_time_used = ((double) (t_end - t_start)) / CLOCKS_PER_SEC;
-         APP_LOG_FATAL("\nRead: %d = %f", i,cpu_time_used);
-
-         if(i==0) {
-            if(reSyncIndex < (APP_NO_OF_GENERATORS-1)) {
-               reSyncIndex++;
-            }
-            else {
-               reSyncIndex = 0;
-            }
-            genData[reSyncIndex].enabled = 1;
-            APP_LOG_FATAL("\nResync: %d", reSyncIndex);
-         }
+      if(genData[i].enabled) {
+         ubus_call_read_x(i);
       }
-      else {
-         sim_read_gen_x(i);
+      if(i==0) {
+         if(reSyncIndex < (APP_NO_OF_GENERATORS-1)) {
+            reSyncIndex++;
+         }
+         else {
+            reSyncIndex = 0;
+         }
+         genData[reSyncIndex].enabled = 1;
       }
 
       //APP_LOG_FATAL("\nRead: %d", i);
