@@ -420,7 +420,7 @@ uint8_t * app_data_get_input_data (
          APP_LOG_FATAL("\nRead: %d = %f", i,cpu_time_used);
 
          if(i==0) {
-            if(reSyncIndex < APP_NO_OF_GENERATORS) {
+            if(reSyncIndex < (APP_NO_OF_GENERATORS-1)) {
                reSyncIndex++;
             }
             else {
