@@ -147,7 +147,7 @@ typedef struct
 #define APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT  0x00000132
 #define APP_GSDML_SUBMOD_ID_ECHO            0x00000140
 #define APP_GSDML_SUBMOD_ID_DCM_KKS_INPUTS  0x00000150
-#define APP_NO_OF_GENERATORS                3
+#define APP_NO_OF_GENERATORS                16
 #define APP_GSDML_INPUT_DATA_DIGITAL_SIZE   (4) /* bytes */
 #define APP_GSDML_OUTPUT_DATA_DIGITAL_SIZE  (3)/* bytes */
 #define APP_GSDML_INPUT_DATA_ECHO_SIZE      8 /* bytes */
