@@ -80,6 +80,7 @@ CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_OUTPUT_DATA_ECHO_SIZE);
 static struct ubus_context *ctx;
 static struct blob_buf b;
 static bool initDone = false;
+static int16_t reSyncIndex = 0;
 clock_t t_start, t_end;
 double cpu_time_used;
 //static uint32_t pnComSupervisor = 0;
@@ -162,8 +163,6 @@ static void sim_read_gen_x(int genIndex) {
 static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg, int genIndex)
 {
    
-   t_start = clock();
-
    char *blobmsg_string;
 	blobmsg_string = blobmsg_format_json_indent(msg, true, 0);
 
@@ -207,10 +206,6 @@ static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg
    json_object_put(result_array);   
    json_object_put(root);
    free(blobmsg_string);
-
-   t_end = clock();
-   cpu_time_used = ((double) (t_end - t_start)) / CLOCKS_PER_SEC;
-   APP_LOG_FATAL("\nRead: %d = %f", genIndex,cpu_time_used);
    
 }
 
@@ -430,7 +425,17 @@ uint8_t * app_data_get_input_data (
       i = slot_nbr-1;
 
       if(i < 3) {
-         ubus_call_read_x(i);
+         t_start = clock();
+         if(genData[i].enabled) {
+            ubus_call_read_x(i);
+         }
+         t_end = clock();
+         cpu_time_used = ((double) (t_end - t_start)) / CLOCKS_PER_SEC;
+         APP_LOG_FATAL("\nRead: %d = %f", i,cpu_time_used);
+
+         if(i==0) {
+            genData[reSyncIndex++ % APP_NO_OF_GENERATORS].enabled = 1;
+         }
       }
       else {
          sim_read_gen_x(i);
