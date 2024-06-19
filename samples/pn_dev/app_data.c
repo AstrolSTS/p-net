@@ -212,7 +212,7 @@ static void read_gen_14(struct ubus_request *req, int type, struct blob_attr *ms
 static void read_gen_15(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,15); }
 
 
-static ubus_call_read_x(uint16_t index) {
+static int ubus_call_read_x(uint16_t index) {
 
    if(initDone == false) {       // initialize system on the first call
       if(0 == init_kks_dcm()) {
