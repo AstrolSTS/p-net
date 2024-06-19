@@ -80,7 +80,7 @@ CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_OUTPUT_DATA_ECHO_SIZE);
 static struct ubus_context *ctx;
 static struct blob_buf b;
 static bool initDone = false;
-static int16_t reSyncIndex = 0;
+//static int16_t reSyncIndex = 0;
 clock_t t_start, t_end;
 double cpu_time_used;
 //static uint32_t pnComSupervisor = 0;
