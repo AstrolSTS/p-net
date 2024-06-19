@@ -363,6 +363,8 @@ uint8_t * app_data_get_input_data (
       // Parse and fill in into inputdata buffer
       i = slot_nbr-1;
       i = 1;
+      genData[i].enabled = 1;
+
       if(genData[i].enabled) {
          ubus_call_read_x(i);
       }
