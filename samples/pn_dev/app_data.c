@@ -419,7 +419,8 @@ uint8_t * app_data_get_input_data (
       // Read generator data here
       // Parse and fill in into inputdata buffer
       i = slot_nbr-1;
-      if(i==0) {
+
+      if(i < 3) {
          ubus_call_read_x(i);
       }
       else {
