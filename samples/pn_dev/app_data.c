@@ -458,7 +458,7 @@ int app_data_set_output_data (
    uint16_t size)
 {
    bool led_state;
-   int16_t i;
+   
 
    if (data == NULL)
    {
@@ -472,13 +472,10 @@ int app_data_set_output_data (
       if (size == APP_GSDML_OUTPUT_DATA_DIGITAL_SIZE)
       {
          memcpy (outputdata, data, size);
-
-         A
-
          // KKS-DCM
          // Write data to generator here
          // read from outputdata buffer and fill into generator data
-         i = slot_nbr;
+         uint16_t i = slot_nbr;
          if(i<APP_NO_OF_GENERATORS) {
             genData[i].control0 = outputdata[0]; // Generator x Control0
             genData[i].control1 = outputdata[1]; // Generator x Control1
