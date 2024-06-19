@@ -30,7 +30,7 @@
                   <VendorName Value="KKS Ultraschall AG"/>
                   <OrderNumber Value="KKS-DCM"/>
                   <HardwareRelease Value="B02"/>
-                  <SoftwareRelease Value="V1.3.7"/>
+                  <SoftwareRelease Value="V1.4.0"/>
                </ModuleInfo>
                <CertificationInfo ConformanceClass="B" ApplicationClass="" NetloadClass="I"/>
                <IOConfigData MaxInputLength="244" MaxOutputLength="244"/>
