@@ -79,7 +79,6 @@ CC_STATIC_ASSERT (sizeof (app_echo_data_t) == APP_GSDML_OUTPUT_DATA_ECHO_SIZE);
 
 static struct ubus_context *ctx;
 static struct blob_buf b;
-static bool initDone = false;
 //static int16_t reSyncIndex = 0;
 clock_t t_start, t_end;
 double cpu_time_used;
@@ -230,13 +229,6 @@ static void read_gen_15(struct ubus_request *req, int type, struct blob_attr *ms
 
 
 static int ubus_call_read_x(uint16_t index) {
-
-   if(initDone == false) {       // initialize system on the first call
-      if(0 == init_kks_dcm()) {
-         initDone = true;
-      }
-   }
-
    const char *ubus_socket = NULL;
 	uint32_t id;
    //char *result;
@@ -288,13 +280,6 @@ static int ubus_call_read_x(uint16_t index) {
 
 /*
 static int ubus_call_write_x(uint16_t index) {
-
-   if(initDone == false) {       // initialize system on the first call
-      if(0 == init_kks_dcm()) {
-         initDone = true;
-      }
-   }
-
    const char *ubus_socket = NULL;
 	uint32_t id;
 
