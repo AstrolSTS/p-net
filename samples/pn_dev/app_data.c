@@ -433,9 +433,9 @@ uint8_t * app_data_get_input_data (
          cpu_time_used = ((double) (t_end - t_start)) / CLOCKS_PER_SEC;
          APP_LOG_FATAL("\nRead: %d = %f", i,cpu_time_used);
 
-         if(i==0) {
-            genData[reSyncIndex++ % APP_NO_OF_GENERATORS].enabled = 1;
-         }
+         //if(i==0) {
+         //   genData[reSyncIndex++ % APP_NO_OF_GENERATORS].enabled = 1;
+         //}
       }
       else {
          sim_read_gen_x(i);
