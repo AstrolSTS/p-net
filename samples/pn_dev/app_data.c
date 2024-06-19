@@ -362,9 +362,6 @@ uint8_t * app_data_get_input_data (
       // Read generator data here
       // Parse and fill in into inputdata buffer
       i = slot_nbr-1;
-      i = 1;
-      genData[i].enabled = 1;
-
       if(genData[i].enabled) {
          ubus_call_read_x(i);
       }
@@ -446,7 +443,6 @@ int app_data_set_output_data (
          // Write data to generator here
          // read from outputdata buffer and fill into generator data
          uint16_t i = slot_nbr-1;
-         i = 1;
          if(i<APP_NO_OF_GENERATORS) {
             genData[i].control0 = outputdata[0]; // Generator x Control0
             genData[i].control1 = outputdata[1]; // Generator x Control1
