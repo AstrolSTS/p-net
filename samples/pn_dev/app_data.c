@@ -212,7 +212,7 @@ static void read_gen_14(struct ubus_request *req, int type, struct blob_attr *ms
 static void read_gen_15(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,15); }
 
 
-static int ubus_call_read(void) {
+static ubus_call_read_x(uint16_t index) {
 
    if(initDone == false) {       // initialize system on the first call
       if(0 == init_kks_dcm()) {
@@ -240,31 +240,29 @@ static int ubus_call_read(void) {
    
    const char *method = "api";
    char parameter[128];
-   int16_t i;
-   for(i=0;i<APP_NO_OF_GENERATORS;i++) {
-      blob_buf_init(&b,0);
-      sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"read\", \"index\": 13, \"count\":5, \"refresh\":true}}",i);
-      blobmsg_add_json_from_string(&b, parameter);
-      //APP_LOG_FATAL("\nGEN: %d", i);
-      if(i == 0) { if(ubus_invoke(ctx, id, method, b.head, read_gen_0, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 1) { if(ubus_invoke(ctx, id, method, b.head, read_gen_1, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 2) { if(ubus_invoke(ctx, id, method, b.head, read_gen_2, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 3) { if(ubus_invoke(ctx, id, method, b.head, read_gen_3, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 4) { if(ubus_invoke(ctx, id, method, b.head, read_gen_4, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 5) { if(ubus_invoke(ctx, id, method, b.head, read_gen_5, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 6) { if(ubus_invoke(ctx, id, method, b.head, read_gen_6, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 7) { if(ubus_invoke(ctx, id, method, b.head, read_gen_7, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 8) { if(ubus_invoke(ctx, id, method, b.head, read_gen_8, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 9) { if(ubus_invoke(ctx, id, method, b.head, read_gen_9, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 10) { if(ubus_invoke(ctx, id, method, b.head, read_gen_10, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 11) { if(ubus_invoke(ctx, id, method, b.head, read_gen_11, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 12) { if(ubus_invoke(ctx, id, method, b.head, read_gen_12, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 13) { if(ubus_invoke(ctx, id, method, b.head, read_gen_13, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 14) { if(ubus_invoke(ctx, id, method, b.head, read_gen_14, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
-      if(i == 15) { if(ubus_invoke(ctx, id, method, b.head, read_gen_15, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
- 
-      blob_buf_free(&b);
-   }
+   int16_t i = index;
+   blob_buf_init(&b,0);
+   sprintf(parameter,"{\"coreregs\":{ \"generator\":\"%d\",\"cmd\": \"read\", \"index\": 13, \"count\":5, \"refresh\":true}}",i);
+   blobmsg_add_json_from_string(&b, parameter);
+   //APP_LOG_FATAL("\nGEN: %d", i);
+   if(i == 0) { if(ubus_invoke(ctx, id, method, b.head, read_gen_0, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 1) { if(ubus_invoke(ctx, id, method, b.head, read_gen_1, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 2) { if(ubus_invoke(ctx, id, method, b.head, read_gen_2, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 3) { if(ubus_invoke(ctx, id, method, b.head, read_gen_3, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 4) { if(ubus_invoke(ctx, id, method, b.head, read_gen_4, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 5) { if(ubus_invoke(ctx, id, method, b.head, read_gen_5, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 6) { if(ubus_invoke(ctx, id, method, b.head, read_gen_6, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 7) { if(ubus_invoke(ctx, id, method, b.head, read_gen_7, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 8) { if(ubus_invoke(ctx, id, method, b.head, read_gen_8, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 9) { if(ubus_invoke(ctx, id, method, b.head, read_gen_9, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 10) { if(ubus_invoke(ctx, id, method, b.head, read_gen_10, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 11) { if(ubus_invoke(ctx, id, method, b.head, read_gen_11, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 12) { if(ubus_invoke(ctx, id, method, b.head, read_gen_12, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 13) { if(ubus_invoke(ctx, id, method, b.head, read_gen_13, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 14) { if(ubus_invoke(ctx, id, method, b.head, read_gen_14, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+   if(i == 15) { if(ubus_invoke(ctx, id, method, b.head, read_gen_15, 0, 0)) { APP_LOG_FATAL("Failed to call ubus method %s", method);}}
+
+   blob_buf_free(&b);
 
    ubus_free(ctx);
    
@@ -272,7 +270,7 @@ static int ubus_call_read(void) {
 }
 
 
-static int ubus_call_write(void) {
+static int ubus_call_write_x(uint16_t index) {
 
    if(initDone == false) {       // initialize system on the first call
       if(0 == init_kks_dcm()) {
@@ -299,7 +297,8 @@ static int ubus_call_write(void) {
    const char *method = "api";
    char parameter[128];
    int16_t i,j,subCalls;
-   for(i=0;i<APP_NO_OF_GENERATORS;i++) {
+   i = index;
+   if(i<APP_NO_OF_GENERATORS) {
       if(i==0) {
          subCalls = 3;
       }
@@ -399,24 +398,23 @@ uint8_t * app_data_get_input_data (
    if (
       submodule_id == APP_GSDML_SUBMOD_ID_DIGITAL_IN_OUT)
    {
-      ubus_call_read();
+
+      
+      
 
       // KKS-DCM
       // Read generator data here
       // Parse and fill in into inputdata buffer
-      //pnComSupervisor &= ~(0xFFFF);                      // mask out active bits
-      for(i = 0;i<APP_NO_OF_GENERATORS;i++) {
-         inputdata[(i*4)+0] = genData[i].status0;        // Generator x Status0
-         inputdata[(i*4)+1] = genData[i].status1;        // Generator x Status1
-         inputdata[(i*4)+2] = genData[i].error;          // Generator x Error
-         inputdata[(i*4)+3] = genData[i].actualPower;    // Generator x Actual Power
-
-         //if(genData[i].error != 255) {
-         //   pnComSupervisor |= (1 << i);
-         //}
+      i = slot_nbr;
+      ubus_call_read_x(i);
+      APP_LOG_FATAL("\nRead: %d", i);
+      
+      if(i<APP_NO_OF_GENERATORS) {
+         inputdata[0] = genData[i].status0;        // Generator x Status0
+         inputdata[1] = genData[i].status1;        // Generator x Status1
+         inputdata[2] = genData[i].error;          // Generator x Error
+         inputdata[3] = genData[i].actualPower;    // Generator x Actual Power
       }
-      //pnComSupervisor += 0x10000;                        // higher word is used for supervisor counter
-      //ubus_call_write_pn_com_supervisor();
       *size = APP_GSDML_INPUT_DATA_DIGITAL_SIZE;
       *iops = PNET_IOXS_GOOD;
       return inputdata;
@@ -475,18 +473,21 @@ int app_data_set_output_data (
       {
          memcpy (outputdata, data, size);
 
-         
+         A
 
          // KKS-DCM
          // Write data to generator here
          // read from outputdata buffer and fill into generator data
-         for(i = 0;i<APP_NO_OF_GENERATORS;i++) {
-            genData[i].control0 = outputdata[(i*3)+0]; // Generator x Control0
-            genData[i].control1 = outputdata[(i*3)+1]; // Generator x Control1
-            genData[i].powerSet = outputdata[(i*3)+2]; // Generator x Power Set
+         i = slot_nbr;
+         if(i<APP_NO_OF_GENERATORS) {
+            genData[i].control0 = outputdata[0]; // Generator x Control0
+            genData[i].control1 = outputdata[1]; // Generator x Control1
+            genData[i].powerSet = outputdata[2]; // Generator x Power Set
          }  
-
-         ubus_call_write();
+         
+         ubus_call_write_x(i);
+         APP_LOG_FATAL("\nWrite: %d", i);
+         
 
          /* Most significant bit: LED */
          led_state = 0;//(outputdata[0] & 0x80) > 0;
