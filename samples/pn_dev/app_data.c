@@ -145,11 +145,17 @@ int init_kks_dcm(void) {
    return 0;
 }
 
-
-
+static void sim_read_gen_x(uint16_t genIndex) {
+   genData[genIndex].status0 = genIndex;
+   genData[genIndex].status1 = 0;
+   genData[genIndex].error = 255;            // no communication
+   genData[genIndex].actualPower = 0;
+   genData[genIndex].enabled = 0;
+}
+/*
 static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg, int genIndex)
 {
-   /*
+   
    char *blobmsg_string;
 	blobmsg_string = blobmsg_format_json_indent(msg, true, 0);
 
@@ -159,13 +165,12 @@ static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg
    }
    
    json_object *result_array;
-   */
-   genData[genIndex].status0 = genIndex;//0;
+   genData[genIndex].status0 = 0;
    genData[genIndex].status1 = 0;
    genData[genIndex].error = 255;            // no communication
    genData[genIndex].actualPower = 0;
    genData[genIndex].enabled = 0;
-/*
+
    if (json_object_object_get_ex(root, "result", &result_array)) {
       int array_len = json_object_array_length(result_array);
       
@@ -194,7 +199,7 @@ static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg
    json_object_put(result_array);   
    json_object_put(root);
    free(blobmsg_string);
-   */
+   
 }
 
 static void read_gen_0(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,0); }
@@ -213,6 +218,7 @@ static void read_gen_12(struct ubus_request *req, int type, struct blob_attr *ms
 static void read_gen_13(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,13); }
 static void read_gen_14(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,14); }
 static void read_gen_15(struct ubus_request *req, int type, struct blob_attr *msg) { read_gen_x(req,type,msg,15); }
+*/
 
 /*
 static int ubus_call_read_x(uint16_t index) {
@@ -383,7 +389,7 @@ uint8_t * app_data_get_input_data (
    uint32_t hostorder_outputfloat_bytes;
    app_echo_data_t * p_echo_inputdata = (app_echo_data_t *)&echo_inputdata;
    app_echo_data_t * p_echo_outputdata = (app_echo_data_t *)&echo_outputdata;
-   int16_t i;
+   uint16_t i;
 
    if (size == NULL || iops == NULL)
    {
@@ -411,7 +417,7 @@ uint8_t * app_data_get_input_data (
       // Parse and fill in into inputdata buffer
       i = slot_nbr-1;
       //ubus_call_read_x(i);
-      read_gen_x(i);
+      sim_read_gen_x(i);
       
       //APP_LOG_FATAL("\nRead: %d", i);
       if(i<APP_NO_OF_GENERATORS) {
