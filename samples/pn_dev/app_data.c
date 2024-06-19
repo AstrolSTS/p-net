@@ -146,17 +146,6 @@ int init_kks_dcm(void) {
    return 0;
 }
 
-static void sim_read_gen_x(int genIndex) {
-
-   genData[genIndex].status0 = genIndex;
-   genData[genIndex].status1 = 0;
-   genData[genIndex].error = 255;            // no communication
-   genData[genIndex].actualPower = 0;
-   genData[genIndex].enabled = 0;
-
-}
-
-
 static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg, int genIndex)
 {
    
