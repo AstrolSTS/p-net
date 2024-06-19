@@ -405,10 +405,9 @@ uint8_t * app_data_get_input_data (
       // KKS-DCM
       // Read generator data here
       // Parse and fill in into inputdata buffer
-      i = slot_nbr;
+      i = slot_nbr-1;
       ubus_call_read_x(i);
-      APP_LOG_FATAL("\nRead: %d", i);
-      
+      //APP_LOG_FATAL("\nRead: %d", i);
       if(i<APP_NO_OF_GENERATORS) {
          inputdata[0] = genData[i].status0;        // Generator x Status0
          inputdata[1] = genData[i].status1;        // Generator x Status1
@@ -475,17 +474,15 @@ int app_data_set_output_data (
          // KKS-DCM
          // Write data to generator here
          // read from outputdata buffer and fill into generator data
-         uint16_t i = slot_nbr;
+         uint16_t i = slot_nbr-1;
          if(i<APP_NO_OF_GENERATORS) {
             genData[i].control0 = outputdata[0]; // Generator x Control0
             genData[i].control1 = outputdata[1]; // Generator x Control1
             genData[i].powerSet = outputdata[2]; // Generator x Power Set
          }  
-         
          ubus_call_write_x(i);
-         APP_LOG_FATAL("\nWrite: %d", i);
+         //APP_LOG_FATAL("\nWrite: %d", i);
          
-
          /* Most significant bit: LED */
          led_state = 0;//(outputdata[0] & 0x80) > 0;
          app_handle_data_led_state (led_state);
