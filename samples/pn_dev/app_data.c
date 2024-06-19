@@ -90,6 +90,7 @@ typedef struct {
    uint8_t control1;
    uint8_t powerSet;
    uint8_t enabled;
+   uint8_t comOK;
 } GEN_DATA_TYPE;
 
 static GEN_DATA_TYPE genData[APP_NO_OF_GENERATORS] = {0};
@@ -163,6 +164,7 @@ static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg
    genData[genIndex].error = 255;            // no communication
    genData[genIndex].actualPower = 0;
    genData[genIndex].enabled = 0;
+   genData[genIndex].comOK = 0;
 
    if (json_object_object_get_ex(root, "result", &result_array)) {
       int array_len = json_object_array_length(result_array);
@@ -174,6 +176,7 @@ static void read_gen_x(struct ubus_request *req, int type, struct blob_attr *msg
             if(i==0) {     // status0
                genData[genIndex].status0 = json_object_get_int(value_obj);
                genData[genIndex].enabled = 1;
+               genData[genIndex].comOK = 1;
             }
             if(i==1) {     // status1
                genData[genIndex].status1 = json_object_get_int(value_obj);
@@ -444,7 +447,7 @@ int app_data_set_output_data (
             genData[i].control0 = outputdata[0]; // Generator x Control0
             genData[i].control1 = outputdata[1]; // Generator x Control1
             genData[i].powerSet = outputdata[2]; // Generator x Power Set
-            if(genData[i].enabled) {
+            if(genData[i].comOK)  {
                ubus_call_write_x(i);
             }
          }
