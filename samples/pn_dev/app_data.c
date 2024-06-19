@@ -264,7 +264,7 @@ static int ubus_call_read_x(uint16_t index) {
    return 0;
 }
 
-/*
+
 static int ubus_call_write_x(uint16_t index) {
    const char *ubus_socket = NULL;
 	uint32_t id;
@@ -321,38 +321,6 @@ static int ubus_call_write_x(uint16_t index) {
    
    return 0;
 }
-*/
-
-/*
-static int ubus_call_write_pn_com_supervisor(void) {
-   const char *ubus_socket = NULL;
-	uint32_t id;
-
-   ctx = ubus_connect(ubus_socket);
-   if (!ctx) {
-      APP_LOG_FATAL("Failed to connect to ubus");
-      return -1;
-   }
-
-   if (ubus_lookup_id(ctx, "file", &id)) {
-      APP_LOG_FATAL("Failed to lookup Ubus object");
-      return -1;
-   }
-
-   const char *method = "write";
-   char parameter[128];
-
-   blob_buf_init(&b,0);
-   sprintf(parameter,"{\"path\":\"/root/pnComSupervisor\", \"data\":\"%d\"}",pnComSupervisor);
-   blobmsg_add_json_from_string(&b, parameter);
-   if(ubus_invoke(ctx, id, method, b.head, 0, 0, 0)) {
-      APP_LOG_FATAL("Failed to call ubus method %s", method);
-   }
-   blob_buf_free(&b);
-   ubus_free(ctx);
-   return 0;
-}
-*/
 
 uint8_t * app_data_get_input_data (
    uint16_t slot_nbr,
@@ -476,9 +444,10 @@ int app_data_set_output_data (
             genData[i].control0 = outputdata[0]; // Generator x Control0
             genData[i].control1 = outputdata[1]; // Generator x Control1
             genData[i].powerSet = outputdata[2]; // Generator x Power Set
-         }  
-         //ubus_call_write_x(i);
-         //APP_LOG_FATAL("\nWrite: %d", i);
+            if(genData[i].enabled) {
+               ubus_call_write_x(i);
+            }
+         }
 
          /* Most significant bit: LED */
          led_state = 0;//(outputdata[0] & 0x80) > 0;
